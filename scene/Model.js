@@ -65,7 +65,7 @@ export class Model {
     }
 
     /**
-        Add color(s) to the color list. Must be in hexadecimal format.
+        Add color(s) to the color list. Must be Uint8ClampedArrays.
     */
     addColor() {
         for (var c of arguments) {

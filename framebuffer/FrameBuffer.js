@@ -44,7 +44,7 @@ export class FrameBuffer
          this.bgColorFB = source.bgColorFB;
 
          // Create the pixel buffer.
-         this.pixel_buffer = new Array(this.width * this.height);
+         this.pixel_buffer = new Uint8ClampedArray(this.width * this.height * 4);
 
          // Read pixel data, one pixel at a time, from the source FrameBuffer.
          for (var y = 0; y < this.height; ++y) {
@@ -58,7 +58,7 @@ export class FrameBuffer
          this.bgColorFB = source.bgColorVP;
    
          // Create the pixel buffer.
-         this.pixel_buffer = new Array(this.width * this.height);
+         this.pixel_buffer = new Uint8ClampedArray(this.width * this.height * 4);
    
          // Read pixel data, one pixel at a time, from the source Viewport.
          for (var y = 0; y < this.height; ++y) {
@@ -71,7 +71,7 @@ export class FrameBuffer
          this.height = h ?? 0;
 
          // Create the pixel buffer
-         this.pixel_buffer = new Array(this.width * this.height);
+         this.pixel_buffer = new Uint8ClampedArray(this.width * this.height * 4);
 
          // Initialize the pixel buffer.
          this.bgColorFB = c ?? Color.Black;
@@ -125,7 +125,7 @@ export class FrameBuffer
    /**
       Get the {@code FrameBuffer}'s background color.
 
-      @return the {@code FrameBuffer}'s background {@link Color}
+      @return the {@code FrameBuffer}'s background color
    */
    getBackgroundColorFB() {
       return this.bgColorFB;
@@ -149,7 +149,7 @@ export class FrameBuffer
    /**
       Clear the {@code FrameBuffer} using the given {@link Color}.
 
-      @param c  {@link Color} to clear {@code FrameBuffer} with
+      @param c color (Uint8ClampedArray) to clear {@code FrameBuffer} with
    */
    clearFB(c) {
       for (var y = 0; y < this.height; ++y) {
@@ -168,14 +168,14 @@ export class FrameBuffer
       @return the color of the pixel at the given pixel coordinates
    */
    getPixelFB(x, y) {
-      const index = (y*this.width + x);
-      try {
-         return this.pixel_buffer[index];
-      }
-      catch(e) {
-         console.log(`FrameBuffer: Bad pixel coordinate (${x},${y})`);
-         return Color.Black;
-      }
+       const index = y * (this.width * 4) + (4 * x);
+       if (index < this.pixel_buffer.length) {
+           return new Uint8ClampedArray([this.pixel_buffer[index], this.pixel_buffer[index + 1], this.pixel_buffer[index + 2], this.pixel_buffer[index + 3]]);
+       }
+       else {
+           console.log('FrameBuffer: Bad pixel coordinate (' + x + ', ' + y + ')');
+           return new Uint8ClampedArray([255, 255, 255, 255]);
+       }
    }
 
    /**
@@ -184,16 +184,21 @@ export class FrameBuffer
 
       @param x  horizontal coordinate within the {@link FrameBuffer}
       @param y  vertical coordinate within the {@link FrameBuffer}
-      @param c  color for the pixel at the given pixel coordinates
+      @param c  color for the pixel at the given pixel coordinates (Uint8ClampedArray)
    */
    setPixelFB(x, y, c) {
-      const index = (y*this.width + x);
-      try {
-         this.pixel_buffer[index] = c;
-      }
-      catch(e) {
-        console.log(`FrameBuffer: Bad pixel coordinate (${x},${y})`);
-      }
+       //const index = y * this.width + x;
+       const index = y * (4 * this.width) + (4 * x);
+       if (index < this.pixel_buffer.length) {
+           this.pixel_buffer[index] = c[0];
+           this.pixel_buffer[index + 1] = c[1];
+           this.pixel_buffer[index + 2] = c[2];
+           this.pixel_buffer[index + 3] = c[3];
+       }
+       else {
+           console.log('FrameBuffer: Bad pixel coordinate (' + x + ', ' + y + '); Color: ' + c);
+           //return new Uint8ClampedArray([255, 255, 255, 255]);
+       }
    }
 
    /**
@@ -202,19 +207,16 @@ export class FrameBuffer
 
       @return {@link FrameBuffer} object holding just red pixel data from this {@link FrameBuffer}
    */
-   convertRed2FB() {
-      const red_fb = new FrameBuffer(this.width, this.height);
-      red_fb.bgColorFB = this.bgColorFB;
-
-      // Copy the framebuffer's red values into the new framebuffer's pixel buffer.
-      for (var y = 0; y < this.height; ++y) {
-         for (var x = 0; x < this.width; ++x) {
-            const c = new Color([this.bgColorFB.r, 0, 0]);
-            red_fb.setPixelFB(x, y, c);
-         }
+  convertRed2FB() {
+      const red_fb = new FrameBuffer(this.width, this.height, this.bgColorFB);
+      for (var y = 0; y < this.height; y++) {
+          for (var x = 0; x < this.width; x++) {
+              const c = new Uint8ClampedArray([this.getPixelFB(x, y)[0], 0, 0, 0]);
+              red_fb.setPixelFB(x, y, c);
+          }
       }
       return red_fb;
-   }
+  }
 
    /**
       Create a new {@code FrameBuffer} containing the pixel data
@@ -222,19 +224,16 @@ export class FrameBuffer
 
       @return {@code FrameBuffer} object holding just green pixel data from this {@code FrameBuffer}
    */
-   convertGreen2FB() {
-      const green_fb = new FrameBuffer(this.width, this.height);
-      green_fb.bgColorFB = this.bgColorFB;
-
-      // Copy the framebuffer's green values into the new framebuffer's pixel buffer.
-      for (var y = 0; y < this.height; ++y) {
-         for (var x = 0; x < this.width; ++x) {
-            const c = new Color([0, this.bgColorFB.g, 0]);
-            green_fb.setPixelFB(x, y, c);
-         }
+    convertGreen2FB() {
+      const green_fb = new FrameBuffer(this.width, this.height, this.bgColorFB);
+      for (var y = 0; y < this.height; y++) {
+          for (var x = 0; x < this.width; x++) {
+              const c = new Uint8ClampedArray([0, this.getPixelFB(x, y)[1], 0, 0]);
+              green_fb.setPixelFB(x, y, c);
+          }
       }
       return green_fb;
-   }
+  }
 
    /**
       Create a new {@code FrameBuffer} containing the pixel data
@@ -242,19 +241,16 @@ export class FrameBuffer
 
       @return {@code FrameBuffer} object holding just blue pixel data from this {@code FrameBuffer}
    */
-   convertBlue2FB() {
-      const blue_fb = new FrameBuffer(this.width, this.height);
-      blue_fb.bgColorFB = this.bgColorFB;
-
-      // Copy the framebuffer's blue values into the new framebuffer's pixel buffer.
-      for (var y = 0; y < this.height; ++y) {
-         for (var x = 0; x < this.width; ++x) {
-            const c = new Color([0, 0, this.bgColorFB.b]);
-            blue_fb.setPixelFB(x, y, c);
-         }
+    convertBlue2FB() {
+      const blue_fb = new FrameBuffer(this.width, this.height, this.bgColorFB);
+      for (var y = 0; y < this.height; y++) {
+          for (var x = 0; x < this.width; x++) {
+              const c = new Uint8ClampedArray([0, 0, this.getPixelFB(x, y)[2], 0]);
+              blue_fb.setPixelFB(x, y, c);
+          }
       }
       return blue_fb;
-   }
+  }
 
    /**
       For debugging very small {@code FrameBuffer} objects.
@@ -262,20 +258,14 @@ export class FrameBuffer
       @return a string representation of this {@code FrameBuffer}
    */
    toString() {
-      var result = `FrameBuffer [w="${this.width}, h=${this.height}]\n`;
-      for (var j = 0; j < this.width; ++j) {
-         result += " r   g   b |";
-      }
-      result += "\n";
-      for (var i = 0; i < this.height; ++i) {
-         for (var j = 0; j < this.width; ++j) {
-            const c = this.pixel_buffer[(i*this.width) + j];
-            if (c) {
-               result += c.r + c.g + c.b;
-            }
-         }
-         result += "\n";
-      }
-      return result;
-   }
+       let result = "FrameBuffer [w = " + this.width + ", h = " + this.height + "]\n";
+       for (var j = 0; j < this.height; ++j) {
+           for (var i = 0; i < this.width; ++i) {
+              let color = this.getPixelFB(i, j);
+               result += color[0] + " " + color[1] + " " + color[2] + " " + color[3] + " | ";
+           }
+           result += "\n";
+       }
+       return result;
+   } 
 }//FrameBuffer

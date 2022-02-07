@@ -54,7 +54,7 @@ scene.addPosition( [new Position(new Pyramid(2.0, 1.0, 15, 4, false))]);
 scene.addPosition( [new Position(new Pyramid())]);
 scene.addPosition( [new Position(new ObjSimpleModel("assets/cessna.obj"))]);
 scene.addPosition( [new Position(new GRSModel("assets/grs/bronto.grs"))]);
-scene.addPosition( [new Position(new  Cube2())] );
+scene.addPosition( [new Position(new Cube2())] );
 scene.addPosition( [new Position(new Circle())] );
 scene.addPosition( [new Position(new CylinderSector())] );
 
@@ -67,7 +67,7 @@ for (var p of scene.positionList) {
 	}
 }
 
-const axes = new Axes2D(-10,10,-10,10,-8,11,11);
+const axes = new Axes2D();
 ModelShading.setColor(axes, Color.Red);
 scene.addPosition( [new Position(axes)] );
 for(var vertex of axes.vertexList) {
@@ -240,26 +240,16 @@ function display(){
 		console.log("cn.getContext(2d) is null");
 		return;
 	}
-	const fb = new FrameBuffer(undefined,window.innerWidth,window.innerHeight);
+	const fb = new FrameBuffer(undefined,window.innerWidth,window.innerHeight,undefined);
 	ctx.canvas.width = window.innerWidth;
 	ctx.canvas.height = window.innerHeight;
 	Pipeline.render(scene, cn, fb.vp);
 
 	// probably should just store this imageData in Framebuffer
-	const imgData = ctx.createImageData(fb.width,fb.height);
+	const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
 	console.log(fb);
-	var k = 0;
-	for (var i = fb.height - 1; i > 0; --i) {
-	   for (var j = 0; j < fb.width; ++j) {
-		  const c = fb.pixel_buffer[(i*fb.width) + j];
-		  imgData.data[k+0] = c.r;
-		  imgData.data[k+1] = c.g;
-		  imgData.data[k+2] = c.b;
-		  imgData.data[k+3] = 255;
-		  k += 4;
-	   }
-	}
-	ctx.putImageData(imgData, fb.vp.vp_ul_x, fb.vp.vp_ul_y);
+	imageData.data.set(fb.pixel_buffer);
+	ctx.putImageData(imageData, fb.vp.vp_ul_x, fb.vp.vp_ul_y);
 }
 
 function print_help_message()

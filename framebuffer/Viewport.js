@@ -171,7 +171,7 @@ export class Viewport
 
         @param x  horizontal coordinate within this {@code Viewport}
         @param y  vertical coordinate within this {@code Viewport}
-        @param c  {@link Color} for the pixel at the given {@code Viewport} coordinates
+        @param c  color (Uint8ClampedArray) for the pixel at the given {@code Viewport} coordinates
     */
     setPixelVP(x, y, c) {
         this.parent.setPixelFB(this.vp_ul_x + x, this.vp_ul_y + y, c);
@@ -187,7 +187,7 @@ export class Viewport
         const wVP = this.getWidthVP();
         const hVP = this.getHeightVP();
 
-        const vp_fb = new FrameBuffer( wVP, hVP );
+        const vp_fb = new FrameBuffer(undefined, wVP, hVP);
         vp_fb.bgColorFB = this.bgColorVP;
 
         // Copy the current viewport into the new framebuffer's pixel buffer.

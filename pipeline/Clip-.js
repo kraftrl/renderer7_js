@@ -121,7 +121,7 @@ export class Clip {
         var g = (1-t_) * co.g + t_ * ci.g;
         var b = (1-t_) * co.b + t_ * ci.b;
 
-        var c_new = new Color([r, g, b]);
+        var c_new = new Uint8ClampedArray([r, g, b, 255]);
 
         // Modify the Model and LineSegment to contain the new Vertex and Color
         var vIndex = model.vertexList.length;

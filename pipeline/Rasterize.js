@@ -101,7 +101,7 @@ export class Rasterize {
                 const weight = (y - y_low);
 
                 // Interpolate colors for the low and high pixels.
-                const [colorLow, colorHigh] = Color.interpolateAA(color, bg, weight);
+                var [colorLow, colorHigh] = Color.interpolateAA(color, bg, weight);
                 /*
                 // You can try replacing the above anti-aliasing code with this
                 // code to see that this simple idea doesn't work here (as it
@@ -118,8 +118,8 @@ export class Rasterize {
                 float b_hi  = (float)(weight * b);
                 */
                 if (this.doGamma) {
-                    colorLow.applyGamma();
-                    colorHigh.applyGamma();
+                    colorLow = Color.applyGamma(colorLow);
+                    colorHigh = Color.applyGamma(colorHigh);
                 }
 
                 // Set this (antialiased) pixel in the framebuffer.
@@ -130,17 +130,17 @@ export class Rasterize {
                         vp.setPixelVP(x_vp, y_vp_low, colorLow);
                         vp.setPixelVP(x_vp, y_vp_hi,  colorHigh);
                     }
-                    else {// a transposed line
-                        const x_vp_low = y_low - 1;  // viewport coordinate
-                        const x_vp_hi  = y_hi  - 1;  // viewport coordinate
-                        const y_vp     = h - x;      // viewport coordinate
-                        vp.setPixelVP(x_vp_low, y_vp, colorLow);
-                        vp.setPixelVP(x_vp_hi,  y_vp, colorHigh);
+                else {// a transposed line
+                    const x_vp_low = y_low - 1;  // viewport coordinate
+                    const x_vp_hi  = y_hi  - 1;  // viewport coordinate
+                    const y_vp     = h - x;      // viewport coordinate
+                    vp.setPixelVP(x_vp_low, y_vp, colorLow);
+                    vp.setPixelVP(x_vp_hi,  y_vp, colorHigh);
                 }
             }
             else {// no antialiasing
                 if (this.doGamma) {
-                    color.applyGamma();
+                    color = Color.applyGamma(color);
                 }
 
                 // The value of y will almost always be between
@@ -163,7 +163,7 @@ export class Rasterize {
         // Set the pixel for the (x1,y1) endpoint.
         // We do this separately to avoid roundoff errors.
         if (this.doGamma) {
-            c1.applyGamma();
+            c1 = Color.applyGamma(c1);
         }
         if ( ! transposedLine ) {
             const x_vp = x1 - 1;  // viewport coordinate

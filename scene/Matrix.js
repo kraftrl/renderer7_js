@@ -105,10 +105,12 @@ export class Matrix {
         const c = Math.cos((Math.PI / 180.0) * theta);
         const s = Math.sin((Math.PI / 180.0) * theta);
 
-        var newMatrix = Matrix.build(new Vector(ux * ux * (1 - c) + c,        uy * ux * (1 - c) + (uz * s), uz * ux * (1 - c) - (uy * s), 0.0),
-                            new Vector(ux * uy * (1 - c) - (uz * s), uy * uy * (1 - c) + c,        uz * uy * (1 - c) + (ux * s), 0.0),
-                            new Vector(ux * uz * (1 - c) + (uy * s), uy * uz * (1 - c) - (ux * s), uz * uz * (1 - c) + c,        0.0),
-                            new Vector(0.0,                          0.0,                          0.0,                          1.0));
+        var newMatrix = Matrix.build(
+            new Vector(ux * ux * (1 - c) + c,        uy * ux * (1 - c) + (uz * s), uz * ux * (1 - c) - (uy * s), 0.0),
+            new Vector(ux * uy * (1 - c) - (uz * s), uy * uy * (1 - c) + c,        uz * uy * (1 - c) + (ux * s), 0.0),
+            new Vector(ux * uz * (1 - c) + (uy * s), uy * uz * (1 - c) - (ux * s), uz * uz * (1 - c) + c,        0.0),
+            new Vector(0.0,                          0.0,                          0.0,                          1.0)
+        );
         //console.log(newMatrix);
         return newMatrix;
     }
