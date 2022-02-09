@@ -62,7 +62,7 @@ class InteractiveCube extends InteractiveAbstractClient {
                               new LineSegment(3, 7),  // front face
                               new LineSegment(2, 6)]); // front face
 
-        console.log(model);
+        // console.log(model);
 
         this.setupViewing();
     }
@@ -76,6 +76,11 @@ document.addEventListener("keypress", function(e) {
     interactiveCube.keyPressed(e);
 });
 
-window.onresize = function() {
+// window.onresize = function() {
+//     interactiveCube.setupViewing();
+// };
+
+var resizer = new ResizeObserver(function () {
     interactiveCube.setupViewing();
-};
+});
+resizer.observe(document.getElementById("resizer"));

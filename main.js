@@ -18,7 +18,7 @@ import { Color } from './color/Color.js';
 const scene = new Scene();
 
 scene.camera.projPerspectiveReset();
-console.log(scene.camera.normalizeMatrix);
+// console.log(scene.camera.normalizeMatrix);
 
 // scene.addPosition( [new Position(new   Cube())] );
 // scene.addPosition( [new Position(Model.loadFromJSON("models/Cube.json"))])
@@ -56,8 +56,6 @@ scene.positionList[currentPosition].model.visible = true;
 // console.log(scene);
 print_help_message();
 
-const cn = document.getElementById("pixels");
-const ctx = cn.getContext("2d");
 display();
 
 document.addEventListener('keypress', keyPressed);
@@ -207,20 +205,22 @@ function keyPressed(event) {
 }
 
 function display(){
-	const cn = document.getElementById("pixels");
-	const ctx = cn.getContext("2d");
+	const resizer = document.getElementById("resizer");
+	const w = resizer.offsetWidth;
+	const h = resizer.offsetHeight;
+	const ctx = document.getElementById("pixels").getContext("2d");
 	if (ctx == null) {
 		console.log("cn.getContext(2d) is null");
 		return;
 	}
-	const fb = new FrameBuffer(undefined,window.innerWidth,window.innerHeight,undefined);
-	ctx.canvas.width = window.innerWidth;
-	ctx.canvas.height = window.innerHeight;
+	ctx.canvas.width = w;
+	ctx.canvas.height = h;
+	const fb = new FrameBuffer(undefined, w, h);
 	Pipeline.render(scene, fb.vp);
 
 	// maybe just store this imageData in Framebuffer
-	const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-	console.log(fb);
+	const imageData = ctx.getImageData(0, 0, w, h);
+	// console.log(fb);
 	imageData.data.set(fb.pixel_buffer);
 	ctx.putImageData(imageData, fb.vp.vp_ul_x, fb.vp.vp_ul_y);
 }
@@ -267,4 +267,7 @@ function updateNormalizeMatrix(camera) {
 	}
 }
 
-window.onresize = display;
+// window.onresize = display;
+
+var resizer = new ResizeObserver(display);
+resizer.observe(document.getElementById("resizer"));

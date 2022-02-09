@@ -5,7 +5,10 @@
 		<title>Interactive Triangle</title>
 		<link rel="shortcut icon" href="#" />
 		<style>
-			body { margin: 0; overflow: hidden; }
+			body { 
+				margin: 0; 
+				overflow: auto;
+			}
 			#pixels {
 				-moz-transform: scale(1, -1);
 				-webkit-transform: scale(1, -1);
@@ -13,11 +16,19 @@
 				transform: scale(1, -1);
 				filter: FlipV;
 			}
+			#resizer {
+				overflow: hidden;
+				resize: both;
+				width: 600px;
+				height: 600px;
+			}
 		</style>
 	</head>
 
 	<body>
-		<canvas id="pixels" width="900" height="900"></canvas>
+		<div id="resizer">
+			<canvas id="pixels" width=600 height=600></canvas>
+		</div>
 
 		<script src="../scene/Scene.js" type="module"></script>
 		<script src="../scene/Camera.js" type="module"></script>

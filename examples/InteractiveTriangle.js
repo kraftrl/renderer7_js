@@ -46,7 +46,7 @@ export class InteractiveTriangle extends InteractiveAbstractClient {
                                    new LineSegment(1, 2, 1, 2),
                                    new LineSegment(2, 0, 2, 0)]);
 
-        console.log(model);
+        // console.log(model);
         
         this.setupViewing();
     }
@@ -59,6 +59,11 @@ document.addEventListener("keypress", function(e) {
     interactiveTriangle.keyPressed(e)
 });
 
-window.onresize = function() {
+// window.onresize = function() {
+//     interactiveTriangle.setupViewing();
+// };
+
+var resizer = new ResizeObserver(function () {
     interactiveTriangle.setupViewing();
-};
+});
+resizer.observe(document.getElementById("resizer"));

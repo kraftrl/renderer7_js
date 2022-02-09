@@ -56,8 +56,6 @@ export class InteractiveGRSModels extends InteractiveAbstractClient {
         }
         ModelShading.setColor(axes, Color.Red);
 
-        this.currentModel = 0;
-
         // Add a model to the first position.
         position.setModel(this.modelArray[this.currentModel]);
 
@@ -74,6 +72,11 @@ document.addEventListener("keypress", function(e) {
     interactiveGRSModels.keyPressed(e)
 });
 
-window.onresize = function() {
+// window.onresize = function() {
+//     interactiveGRSModels.setupViewing();
+// };
+
+var resizer = new ResizeObserver(function () {
     interactiveGRSModels.setupViewing();
-};
+});
+resizer.observe(document.getElementById("resizer"));

@@ -34,9 +34,9 @@ export class InteractiveAbstractClient {
 
         this.scene = null;
         this.modelArray = [];
+        this.currentModel = 0;
         
-        this.cn = document.getElementById("pixels");;
-        this.ctx = this.cn.getContext("2d");
+        this.ctx = document.getElementById("pixels").getContext("2d");
     }
 
     // A client program can override how transformations are preformed.
@@ -148,8 +148,7 @@ export class InteractiveAbstractClient {
             this.scene.getPosition(0).setModel( this.modelArray[this.currentModel] );
          }
          else if ('?' == c) {
-            this.currentModel -= 1;
-            if (this.currentModel < 0) this.currentModel = this.modelArray.length - 1;
+            if (--this.currentModel < 0) this.currentModel = this.modelArray.length - 1;
             this.scene.getPosition(0).setModel( this.modelArray[this.currentModel] );
          }
          else if ('p' == c) {
@@ -238,13 +237,14 @@ export class InteractiveAbstractClient {
         if ('='==c||'/'==c||'?'==c
             ||'s'==c||'x'==c||'y'==c||'z'==c||'u'==c||'v'==c||'w'==c
             ||'S'==c||'X'==c||'Y'==c||'Z'==c||'U'==c||'V'==c||'W'==c) {
-            console.log(this);
             this.setTransformations(c);
         }
 
         if (this.showMatrix) {
             //this.displayMatrix(c);
         }
+
+        console.log(this);
 
         // Render again.
         this.setupViewing();
@@ -273,7 +273,7 @@ export class InteractiveAbstractClient {
         }
         
         if (this.showCamera && this.cameraChanged) {
-            console.log(this.scene.camera);
+            // console.log(this.scene.camera);
             this.cameraChanged = false;
         }
         
@@ -281,20 +281,22 @@ export class InteractiveAbstractClient {
     }
 
     display(){
-        this.cn = document.getElementById("pixels");;
-        this.ctx = this.cn.getContext("2d");
+        const resizer = document.getElementById("resizer");
+        const w = resizer.offsetWidth;
+        const h = resizer.offsetHeight;
+        this.ctx = document.getElementById("pixels").getContext("2d");
         if (this.ctx == null) {
             console.log("cn.getContext(2d) is null");
             return;
         }
-        const fb = new FrameBuffer(undefined,window.innerWidth,window.innerHeight,undefined);
-        this.ctx.canvas.width = window.innerWidth;
-        this.ctx.canvas.height = window.innerHeight;
+        this.ctx.canvas.width = w;
+        this.ctx.canvas.height = h;
+        const fb = new FrameBuffer(undefined, w, h);
         Pipeline.render(this.scene, fb.vp);
     
-        // probably should just store this imageData in Framebuffer
-        const imageData = this.ctx.getImageData(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-        console.log(fb);
+        // maybe should just store this imageData in Framebuffer
+        const imageData = this.ctx.getImageData(0, 0, w, h);
+        // console.log(fb);
         imageData.data.set(fb.pixel_buffer);
         this.ctx.putImageData(imageData, fb.vp.vp_ul_x, fb.vp.vp_ul_y);
     }

@@ -39,7 +39,7 @@ export class InteractiveModels extends InteractiveAbstractClient {
         this.modelArray.push(new ObjSimpleModel("../assets/teapot.obj"));
         this.modelArray.push(new ObjSimpleModel("../assets/cessna.obj"));
         this.modelArray.push( new Sphere(1.0, 30, 30) );
-        this.modelArray.push( new CylinderSector(0.5, 1.0, 20, 20) );
+        this.modelArray.push( new CylinderSector(0.5, 1.0, 5, 5) );
         this.modelArray.push( new Torus(0.75, 0.25, 25, 25) );
         this.modelArray.push( new Cube2(15, 15, 15) );
         var floor = new PanelXZ(-7, 7, 3, -1); // floor
@@ -62,8 +62,6 @@ export class InteractiveModels extends InteractiveAbstractClient {
         // Position the wall, floor.
         this.scene.getPosition(1).matrix.mult( Matrix.translate(0,  0, -3) );// wall
         this.scene.getPosition(2).matrix.mult( Matrix.translate(0, -1,  3) );// floor
-
-        this.currentModel = 1;
 
         this.setupViewing();
     }
@@ -133,6 +131,11 @@ document.addEventListener("keypress", function(e) {
     interactiveModels.keyPressed(e)
 });
 
-window.onresize = function() {
+// window.onresize = function() {
+//     interactiveModels.setupViewing();
+// };
+
+var resizer = new ResizeObserver(function () {
     interactiveModels.setupViewing();
-};
+});
+resizer.observe(document.getElementById("resizer"));
