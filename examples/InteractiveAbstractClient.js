@@ -15,6 +15,7 @@ import { Projection } from './../pipeline/Projection.js';
 import { Rasterize } from './../pipeline/Rasterize.js';
 import { View2Camera } from './../pipeline/View2Camera.js';
 import { Model2View } from './../pipeline/Model2View.js';
+import { FrameBuffer } from '../framebuffer/FrameBuffer.js';
 
 export class InteractiveAbstractClient {
 
@@ -289,16 +290,25 @@ export class InteractiveAbstractClient {
             console.log(this.scene.camera);
             this.cameraChanged = false;
         }
+        
+        this.display();
+    }
 
-        // Get the size of the canvas.
-        var w = this.ctx.canvas.width;
-        var h = this.ctx.canvas.height;
-        
-        this.ctx.clearRect(0, 0, this.cn.width, this.cn.height);
-        this.ctx.fillStyle = "black";
-        this.ctx.fillRect(0, 0, this.cn.width, this.cn.height);
-        Pipeline.render(this.scene, this.cn);
-        
+    display(){
+        if (this.ctx == null) {
+            console.log("cn.getContext(2d) is null");
+            return;
+        }
+        const fb = new FrameBuffer(undefined,window.innerWidth,window.innerHeight,undefined);
+        this.ctx.canvas.width = window.innerWidth;
+        this.ctx.canvas.height = window.innerHeight;
+        Pipeline.render(this.scene, fb.vp);
+    
+        // probably should just store this imageData in Framebuffer
+        const imageData = this.ctx.getImageData(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        console.log(fb);
+        imageData.data.set(fb.pixel_buffer);
+        this.ctx.putImageData(imageData, fb.vp.vp_ul_x, fb.vp.vp_ul_y);
     }
 
 }

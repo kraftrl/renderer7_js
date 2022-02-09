@@ -14,6 +14,7 @@ import { Pipeline } from './../pipeline/Pipeline.js';
 
 import { InteractiveAbstractClient } from './InteractiveAbstractClient.js';
 import { Color } from '../color/Color.js';
+import { Cube } from '../models/Cube.js';
 
 class InteractiveCube extends InteractiveAbstractClient {
 
@@ -22,7 +23,7 @@ class InteractiveCube extends InteractiveAbstractClient {
         
         // Create the Scene object that we shall render.
         this.scene = new Scene();
-        var model = new Model("cube");
+        var model = new Cube();
         this.modelArray.push( model );
 
         this.scene.camera.projPerspectiveReset();
@@ -71,18 +72,14 @@ class InteractiveCube extends InteractiveAbstractClient {
 
         console.log(model);
 
-        this.ctx.canvas.width = window.innerWidth;
-        this.ctx.canvas.height = window.innerHeight;
-        this.ctx.clearRect(0, 0, this.cn.width, this.cn.height);
-        this.ctx.fillStyle = "black";
-        this.ctx.fillRect(0, 0, this.cn.width, this.cn.height);
-        Pipeline.render(this.scene, this.cn);
+        this.display();
     }
 
 }
+
 var interactiveCube = new InteractiveCube();
 console.log(interactiveCube);
 //interactiveCube.setTransformations();
 document.addEventListener("keypress", function(e) {
-    interactiveCube.keyPressed(e)
+    interactiveCube.keyPressed(e);
 });

@@ -243,9 +243,9 @@ function display(){
 	const fb = new FrameBuffer(undefined,window.innerWidth,window.innerHeight,undefined);
 	ctx.canvas.width = window.innerWidth;
 	ctx.canvas.height = window.innerHeight;
-	Pipeline.render(scene, cn, fb.vp);
+	Pipeline.render(scene, fb.vp);
 
-	// probably should just store this imageData in Framebuffer
+	// maybe just store this imageData in Framebuffer
 	const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
 	console.log(fb);
 	imageData.data.set(fb.pixel_buffer);
