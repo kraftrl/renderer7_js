@@ -27,9 +27,9 @@ export class Pipeline {
       so that it holds the rendered image of the {@link Scene} object.
 
       @param scene  {@link Scene} object to render
-      @param cn     Canvas to hold rendered image of the {@link Scene}
+      @param vp     Viewport to hold the {@link Scene}
     */
-	static render(scene, cn, vp) {
+	static render(scene, vp) {
         // Render every Model in the Scene.
 		for(var position of scene.positionList) {
 			if (!position.model.visible) continue;
@@ -62,7 +62,7 @@ export class Pipeline {
             // 5. Rasterize each visible line segment into pixels.
             for(var ls of model5.lineSegmentList) {
                 if (ls != []) {
-                    Rasterize.rasterize(model5, ls, cn, vp);
+                    Rasterize.rasterize(model5, ls, vp);
                 }
             }
 		}

@@ -7,13 +7,10 @@ export class Rasterize {
     static doAntialiasing = false;
     static doGamma = false;
 
-    static rasterize(model, ls, cn, vp) {
-        var ctx = cn.getContext("2d");
-
-        if (ctx == null) return;
+    static rasterize(model, ls, vp) {
         // Make local copies of several values.
-        var w = cn.width;
-        var h = cn.height;
+        var w = vp.parent.width;
+        var h = vp.parent.height;
 
         var v0 = model.vertexList[ls.vIndex[0]];
         var v1 = model.vertexList[ls.vIndex[1]];
