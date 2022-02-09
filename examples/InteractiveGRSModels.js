@@ -1,24 +1,9 @@
 import { Scene } from './../scene/Scene.js';
 import { ModelShading } from './../scene/ModelShading.js';
-import { Vector } from './../scene/Vector.js';
-import { Vertex } from './../scene/Vertex.js';
 import { Matrix } from './../scene/Matrix.js';
-import { Camera } from './../scene/Camera.js';
-import { LineSegment } from './../scene/LineSegment.js';
-import { Model } from './../scene/Model.js';
 import { Position } from './../scene/Position.js';
-import { OrthographicNormalizeMatrix } from './../scene/OrthographicNormalizeMatrix.js';
-import { PerspectiveNormalizeMatrix } from './../scene/PerspectiveNormalizeMatrix.js';
-
-import { Pipeline } from './../pipeline/Pipeline.js';
-import { Projection } from './../pipeline/Projection.js';
-import { Rasterize } from './../pipeline/Rasterize.js';
-import { View2Camera } from './../pipeline/View2Camera.js';
-import { Model2View } from './../pipeline/Model2View.js';
-
 import { GRSModel } from './../models/GRSModel.js';
 import { Axes2D } from './../models/Axes2D.js';
-
 import { InteractiveAbstractClient } from './InteractiveAbstractClient.js';
 import { Color } from '../color/Color.js';
 
@@ -79,13 +64,8 @@ export class InteractiveGRSModels extends InteractiveAbstractClient {
         // Switch to a parallel (orthographic) projection.
         this.scene.camera.perspective = false;
         //this.scene.camera.projOrtho();
-
-        this.ctx.canvas.width = window.innerWidth;
-        this.ctx.canvas.height = window.innerHeight;
-        this.ctx.clearRect(0, 0, this.cn.width, this.cn.height);
-        this.ctx.fillStyle = "black";
-        this.ctx.fillRect(0, 0, this.cn.width, this.cn.height);
-        Pipeline.render(this.scene, this.cn);
+        
+        this.setupViewing();
     }
 }
 
@@ -93,3 +73,7 @@ var interactiveGRSModels = new InteractiveGRSModels();
 document.addEventListener("keypress", function(e) {
     interactiveGRSModels.keyPressed(e)
 });
+
+window.onresize = function() {
+    interactiveGRSModels.setupViewing();
+};

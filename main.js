@@ -1,45 +1,18 @@
 import { Scene } from './scene/Scene.js';
 import { ModelShading } from './scene/ModelShading.js';
-import { Vector } from './scene/Vector.js';
-import { Vertex } from './scene/Vertex.js';
 import { Matrix } from './scene/Matrix.js';
-import { Camera } from './scene/Camera.js';
-import { LineSegment } from './scene/LineSegment.js';
-import { Model } from './scene/Model.js';
 import { Position } from './scene/Position.js';
 import { OrthographicNormalizeMatrix } from './scene/OrthographicNormalizeMatrix.js';
 import { PerspectiveNormalizeMatrix } from './scene/PerspectiveNormalizeMatrix.js';
-
-import { Cube } from './models/Cube.js';
-import { Sphere } from './models/Sphere.js';
-import { Triangle } from './models/Triangle.js';
-import { Disk } from './models/Disk.js';
-import { Tetrahedron } from './models/Tetrahedron.js';
-import { Octahedron } from './models/Octahedron.js';
-import { Square } from './models/Square.js';
-import { ConeSector } from './models/ConeSector.js';
-import { Cube3 } from './models/Cube3.js';
-import { Cube4 } from './models/Cube4.js';
-import { Box } from './models/Box.js';
-import { Ring } from './models/Ring.js';
 import { ObjSimpleModel } from './models/ObjSimpleModel.js';
 import { GRSModel } from './models/GRSModel.js';
 import { Cube2 } from './models/Cube2.js';
-import { Torus } from './models/Torus.js';
-import { Dodecahedron } from './models/Dodecahedron.js';
 import { Pyramid } from './models/Pyramid.js';
 import { Axes2D } from './models/Axes2D.js';
 import { Circle } from './models/Circle.js';
 import { CylinderSector } from './models/CylinderSector.js';
-
 import { Pipeline } from './pipeline/Pipeline.js';
-import { Projection } from './pipeline/Projection.js';
-import { Rasterize } from './pipeline/Rasterize.js';
-import { View2Camera } from './pipeline/View2Camera.js';
-import { Model2View } from './pipeline/Model2View.js';
-
 import { FrameBuffer } from './framebuffer/FrameBuffer.js';
-import { Viewport } from './framebuffer/Viewport.js';
 import { Color } from './color/Color.js';
 
 const scene = new Scene();
@@ -59,7 +32,7 @@ scene.addPosition( [new Position(new Circle())] );
 scene.addPosition( [new Position(new CylinderSector())] );
 
 for (var p of scene.positionList) {
-    console.log(p);
+    // console.log(p);
 	ModelShading.setColor(p.model, Color.Blue);
 	p.model.visible = false;
 	for(const vertex of p.model.vertexList) {
@@ -80,7 +53,7 @@ for(var vertex of axes.vertexList) {
 var currentPosition = 0;
 scene.positionList[currentPosition].model.visible = true;
 
-console.log(scene);
+// console.log(scene);
 print_help_message();
 
 const cn = document.getElementById("pixels");
@@ -245,7 +218,7 @@ function display(){
 	ctx.canvas.height = window.innerHeight;
 	Pipeline.render(scene, fb.vp);
 
-	// probably should just store this imageData in Framebuffer
+	// maybe just store this imageData in Framebuffer
 	const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
 	console.log(fb);
 	imageData.data.set(fb.pixel_buffer);

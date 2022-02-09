@@ -15,7 +15,7 @@ export class Vector {
     }
 
     plus (s) {
-        console.log(new Vector(s.x + this.x, s.y + this.y, s.z + this.z, s.w + this.w));
+        // console.log(new Vector(s.x + this.x, s.y + this.y, s.z + this.z, s.w + this.w));
         return new Vector(s.x + this.x, s.y + this.y, s.z + this.z, s.w + this.w);
     }
 

@@ -6,11 +6,11 @@ export class Clip {
     static clip (model, ls) {
         
         // Make local copies of several values
-        console.log(model.vertexList);
+        // console.log(model.vertexList);
         var v0 = model.vertexList[ls.vIndex[0]];
         var v1 = model.vertexList[ls.vIndex[1]];
-        console.log(v0);
-        console.log(v1);
+        // console.log(v0);
+        // console.log(v1);
         var x0 = v0.x;
         var x1 = v1.x;
         var y0 = v0.y;
@@ -83,7 +83,7 @@ export class Clip {
         var vix = model.vertexList[ls.vIndex[inside]].x;
         var viy = model.vertexList[ls.vIndex[inside]].y;
         var ci = model.colorList[ls.cIndex[inside]];
-        console.log(ci);
+        // console.log(ci);
         // and "o" for outside
         var vox = model.vertexList[ls.vIndex[outside]].x;
         var voy = model.vertexList[ls.vIndex[outside]].y;
@@ -91,7 +91,7 @@ export class Clip {
 
         // Interpolate between v_outside and v_inside.
         
-        console.log(ci);
+        // console.log(ci);
         var t = 0.0;
         if (1 == eqn_number) {
             t = (1 - vox) / (vix - vox);
@@ -116,7 +116,7 @@ export class Clip {
         alert(v_new);
 
         var t_ = t;
-        console.log(ci);
+        // console.log(ci);
         var r = (1-t_) * co.r + t_ * ci.r;
         var g = (1-t_) * co.g + t_ * ci.g;
         var b = (1-t_) * co.b + t_ * ci.b;
@@ -128,7 +128,7 @@ export class Clip {
         var cIndex = model.colorList.length;
         model.vertexList.push(v_new);
         model.colorList.push(c_new);
-        console.log(model.vertexList);
+        // console.log(model.vertexList);
         ls.vIndex[outside] = vIndex;
         ls.cIndex[outside] = cIndex;
     }

@@ -64,7 +64,7 @@ export class Disk extends Model {
             this.addLineSegment([ new LineSegment( (i * k) + (k-1), (i * k) + 0 ) ]);
         }
 
-        console.log(this.lineSegmentList);
+        // console.log(this.lineSegmentList);
         
     }
 

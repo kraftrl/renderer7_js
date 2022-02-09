@@ -1,20 +1,8 @@
-import { Scene } from './../scene/Scene.js';
 import { ModelShading } from './../scene/ModelShading.js';
-import { Vector } from './../scene/Vector.js';
-import { Vertex } from './../scene/Vertex.js';
 import { Matrix } from './../scene/Matrix.js';
-import { Camera } from './../scene/Camera.js';
-import { LineSegment } from './../scene/LineSegment.js';
-import { Model } from './../scene/Model.js';
-import { Position } from './../scene/Position.js';
-import { OrthographicNormalizeMatrix } from './../scene/OrthographicNormalizeMatrix.js';
-import { PerspectiveNormalizeMatrix } from './../scene/PerspectiveNormalizeMatrix.js';
-
 import { Pipeline } from './../pipeline/Pipeline.js';
-import { Projection } from './../pipeline/Projection.js';
 import { Rasterize } from './../pipeline/Rasterize.js';
-import { View2Camera } from './../pipeline/View2Camera.js';
-import { Model2View } from './../pipeline/Model2View.js';
+import { FrameBuffer } from '../framebuffer/FrameBuffer.js';
 
 export class InteractiveAbstractClient {
 
@@ -49,7 +37,6 @@ export class InteractiveAbstractClient {
         
         this.cn = document.getElementById("pixels");;
         this.ctx = this.cn.getContext("2d");
-
     }
 
     // A client program can override how transformations are preformed.
@@ -289,16 +276,26 @@ export class InteractiveAbstractClient {
             console.log(this.scene.camera);
             this.cameraChanged = false;
         }
-
-        // Get the size of the canvas.
-        var w = this.ctx.canvas.width;
-        var h = this.ctx.canvas.height;
         
-        this.ctx.clearRect(0, 0, this.cn.width, this.cn.height);
-        this.ctx.fillStyle = "black";
-        this.ctx.fillRect(0, 0, this.cn.width, this.cn.height);
-        Pipeline.render(this.scene, this.cn);
-        
+        this.display();
     }
 
+    display(){
+        this.cn = document.getElementById("pixels");;
+        this.ctx = this.cn.getContext("2d");
+        if (this.ctx == null) {
+            console.log("cn.getContext(2d) is null");
+            return;
+        }
+        const fb = new FrameBuffer(undefined,window.innerWidth,window.innerHeight,undefined);
+        this.ctx.canvas.width = window.innerWidth;
+        this.ctx.canvas.height = window.innerHeight;
+        Pipeline.render(this.scene, fb.vp);
+    
+        // probably should just store this imageData in Framebuffer
+        const imageData = this.ctx.getImageData(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        console.log(fb);
+        imageData.data.set(fb.pixel_buffer);
+        this.ctx.putImageData(imageData, fb.vp.vp_ul_x, fb.vp.vp_ul_y);
+    }
 }

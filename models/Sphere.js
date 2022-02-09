@@ -29,7 +29,7 @@ export class Sphere extends Model {
             for (var i = 0; i < n; ++i) { // choose an angle of latitude
                 var c2 = Math.cos(deltaPhi + i * deltaPhi);
                 var s2 = Math.sin(deltaPhi + i * deltaPhi);
-                console.log(v[i]);
+                // console.log(v[i]);
                 v[i][j] = new Vertex( r * s2 * c1,
                                       r * c2,
                                      -r * s2 * s1 );

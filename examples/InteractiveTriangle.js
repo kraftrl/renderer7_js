@@ -47,13 +47,8 @@ export class InteractiveTriangle extends InteractiveAbstractClient {
                                    new LineSegment(2, 0, 2, 0)]);
 
         console.log(model);
-
-        this.ctx.canvas.width = window.innerWidth;
-        this.ctx.canvas.height = window.innerHeight;
-        this.ctx.clearRect(0, 0, this.cn.width, this.cn.height);
-        this.ctx.fillStyle = "black";
-        this.ctx.fillRect(0, 0, this.cn.width, this.cn.height);
-        Pipeline.render(this.scene, this.cn);
+        
+        this.setupViewing();
     }
 
 }
@@ -63,3 +58,7 @@ console.log(interactiveTriangle);
 document.addEventListener("keypress", function(e) {
     interactiveTriangle.keyPressed(e)
 });
+
+window.onresize = function() {
+    interactiveTriangle.setupViewing();
+};
