@@ -87,7 +87,7 @@ export class Camera {
       @param top     top edge of view rectangle in the near plane
       @param near    distance from the orgin to the near plane
     */
-    projPerspective(left, right, top, bottom, near) {
+    projPerspective(left, right, bottom, top, near) {
         this.left = left;
         this.right = right;
         this.top = top;
@@ -116,7 +116,7 @@ export class Camera {
       @param bottom  bottom edge of view rectangle in the xy-plane
       @param top     top edge of view rectangle in the xy-plane
     */
-    projOrtho(left, right, top, bottom) {
+    projOrtho(left, right, bottom, top) {
 		this.left = left;
 		this.right = right;
 		this.top = top;
