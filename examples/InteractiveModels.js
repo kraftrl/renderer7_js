@@ -126,16 +126,3 @@ export class InteractiveModels extends InteractiveAbstractClient {
         }
     }
 }
-var interactiveModels = new InteractiveModels();
-document.addEventListener("keypress", function(e) {
-    interactiveModels.keyPressed(e)
-});
-
-// window.onresize = function() {
-//     interactiveModels.setupViewing();
-// };
-
-var resizer = new ResizeObserver(function () {
-    interactiveModels.setupViewing();
-});
-resizer.observe(document.getElementById("resizer"));

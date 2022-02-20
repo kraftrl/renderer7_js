@@ -8,7 +8,7 @@ import { InteractiveAbstractClient } from './InteractiveAbstractClient.js';
 import { Color } from '../color/Color.js';
 import { Cube } from '../models/Cube.js';
 
-class InteractiveCube extends InteractiveAbstractClient {
+export class InteractiveCube extends InteractiveAbstractClient {
 
     constructor() {
         super();
@@ -68,19 +68,3 @@ class InteractiveCube extends InteractiveAbstractClient {
     }
 
 }
-
-var interactiveCube = new InteractiveCube();
-console.log(interactiveCube);
-//interactiveCube.setTransformations();
-document.addEventListener("keypress", function(e) {
-    interactiveCube.keyPressed(e);
-});
-
-// window.onresize = function() {
-//     interactiveCube.setupViewing();
-// };
-
-var resizer = new ResizeObserver(function () {
-    interactiveCube.setupViewing();
-});
-resizer.observe(document.getElementById("resizer"));

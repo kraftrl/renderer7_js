@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset=utf-8>
-		<title>Interactive Models</title>
+		<title id="title">Interactive Examples</title>
 		<link rel="shortcut icon" href="#" />
 		<style>
 			body { 
@@ -10,6 +10,7 @@
 				overflow: auto;
 			}
 			#resizer {
+				float: left;
 				overflow: hidden;
 				resize: both;
 				width: 600px;
@@ -21,6 +22,12 @@
 	<body>
 		<div id="resizer">
 			<canvas id="pixels" width=600 height=600></canvas>
+		</div>
+		<div style="float: left;">
+			<button title="InteractiveCube.html" hidden>Cube</button>
+			<button title="InteractiveTriangle.html">Triangle</button>
+			<button title="InteractiveModels.html">Models</button>
+			<button title="InteractiveGRSModels.html">GRS Models</button>
 		</div>
 
 		<script src="../scene/Scene.js" type="module"></script>
@@ -47,8 +54,12 @@
 		<script src="../models/Circle.js" type="module"></script>
 		<script src="../models/CylinderSector.js" type="module"></script>
 
-        <script src="InteractiveAbstractClient.js" type="module"></script>
+		<script src="InteractiveExamples.js" type="module"></script>
 
+        <script src="InteractiveAbstractClient.js" type="module"></script>
+		<script src="InteractiveCube.js" type="module"></script>
+		<script src="InteractiveTriangle.js" type="module"></script>
 		<script src="InteractiveModels.js" type="module"></script>
+		<script src="InteractiveGRSModels.js" type="module"></script>
 	</body>
 </html>
