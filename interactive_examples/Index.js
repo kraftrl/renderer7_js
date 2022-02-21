@@ -1,11 +1,9 @@
-import { InteractiveCube } from "./InteractiveCube.js";
-import { InteractiveGRSModels } from "./InteractiveGRSModels.js";
-import { InteractiveModels } from "./InteractiveModels.js";
-import { InteractiveTriangle } from "./InteractiveTriangle.js";
+import { Cube } from "./Cube.js";
+import { GRSModels } from "./GRSModels.js";
+import { Models } from "./Models.js";
+import { Triangle } from "./Triangle.js";
 
-export class InteractiveExamples {}
-
-setListeners(new InteractiveCube());
+setListeners(new Cube());
 
 const buttons = document.getElementsByTagName('button');
 for (let button of buttons) {
@@ -20,13 +18,13 @@ function goToClient(element) {
     document.getElementById("title").innerText = "Interactive " + element.innerText;
 
     if (element.innerText == "Cube") {
-        setListeners(new InteractiveCube());
+        setListeners(new Cube());
     } else if (element.innerText == "Triangle") {
-        setListeners(new InteractiveTriangle());
+        setListeners(new Triangle());
     } else if (element.innerText == "Models") {
-        setListeners(new InteractiveModels());
+        setListeners(new Models());
     } else if (element.innerText == "GRS Models") {
-        setListeners(new InteractiveGRSModels());
+        setListeners(new GRSModels());
     }
 }
 
