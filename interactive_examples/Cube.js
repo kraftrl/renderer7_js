@@ -1,21 +1,21 @@
-import { Scene } from './../scene/Scene.js';
-import { ModelShading } from './../scene/ModelShading.js';
-import { Vertex } from './../scene/Vertex.js';
-import { Matrix } from './../scene/Matrix.js';
-import { LineSegment } from './../scene/LineSegment.js';
-import { Position } from './../scene/Position.js';
-import { InteractiveAbstractClient } from './InteractiveAbstractClient.js';
+import { Scene } from '../scene/Scene.js';
+import { ModelShading } from '../scene/ModelShading.js';
+import { Vertex } from '../scene/Vertex.js';
+import { Matrix } from '../scene/Matrix.js';
+import { LineSegment } from '../scene/LineSegment.js';
+import { Position } from '../scene/Position.js';
 import { Color } from '../color/Color.js';
-import { Cube } from '../models/Cube.js';
+import * as CubeModel from '../models/Cube.js';
+import { Abstract } from './Abstract.js';
 
-export class InteractiveCube extends InteractiveAbstractClient {
+export class Cube extends Abstract {
 
     constructor() {
         super();
         
         // Create the Scene object that we shall render.
         this.scene = new Scene();
-        var model = new Cube();
+        var model = new CubeModel.Cube();
         this.modelArray.push( model );
 
         this.scene.camera.projPerspectiveReset();
