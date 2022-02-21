@@ -12,6 +12,14 @@ import { Vertex } from '../scene/Vertex.js';
 export class Abstract {
 
     constructor() {
+        const resizer = document.getElementById("resizer");
+        const w = resizer.offsetWidth;
+        const h = resizer.offsetHeight;
+        this.ctx = document.getElementById("pixels").getContext("2d");
+        this.ctx.canvas.width = w;
+        this.ctx.canvas.height = h;
+        this.fb = new FrameBuffer(undefined, w, h);
+
         this.SIZE = 600;
         this.showCamera = false;
         this.cameraChanged = false;
@@ -79,24 +87,15 @@ export class Abstract {
     }
 
     display(){
-        const resizer = document.getElementById("resizer");
-        const w = resizer.offsetWidth;
-        const h = resizer.offsetHeight;
-        const ctx = document.getElementById("pixels").getContext("2d");
-        if (ctx == null) {
-            console.log("cn.getContext(2d) is null");
-            return;
-        }
-        ctx.canvas.width = w;
-        ctx.canvas.height = h;
-        const fb = new FrameBuffer(undefined, w, h);
-        Pipeline.render(this.scene, fb.vp);
+        this.fb.clearFB();
+        this.fb.vp.clearVP();
+        Pipeline.render(this.scene, this.fb.vp);
     
         // maybe should just store this imageData in Framebuffer
-        const imageData = ctx.getImageData(0, 0, w, h);
+        const imageData = this.ctx.getImageData(0, 0, this.fb.width, this.fb.height);
         // console.log(fb);
-        imageData.data.set(fb.pixel_buffer);
-        ctx.putImageData(imageData, fb.vp.vp_ul_x, fb.vp.vp_ul_y);
+        imageData.data.set(this.fb.pixel_buffer);
+        this.ctx.putImageData(imageData, this.fb.vp.vp_ul_x, this.fb.vp.vp_ul_y);
     }
 
     keyPressed(e) {
@@ -153,23 +152,23 @@ export class Abstract {
                 thisClass.setupViewing();
             }, 1000/this.fps);
         } else if ('1' == c) {
-            mode = 1;
+            this.mode = 1;
         } else if ('2' == c) {
-            mode = 2;
+            this.mode = 2;
         } else if ('3' == c) {
-            mode = 3;
+            this.mode = 3;
         } else if ('4' == c) {
-            mode = 4;
+            this.mode = 4;
         } else if ('5' == c) {
-            mode = 5;
+            this.mode = 5;
         } else if ('6' == c) {
-            mode = 6;
+            this.mode = 6;
         } else if ('7' == c) {
-            mode = 7;
+            this.mode = 7;
         } else if ('8' == c) {
-            mode = 8;
+            this.mode = 8;
         } else if ('9' == c) {
-            mode = 9;
+            this.mode = 9;
         }
 
         console.log(this);

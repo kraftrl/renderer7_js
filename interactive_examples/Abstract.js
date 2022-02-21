@@ -1,10 +1,10 @@
-import { ModelShading } from './../scene/ModelShading.js';
-import { Matrix } from './../scene/Matrix.js';
-import { Pipeline } from './../pipeline/Pipeline.js';
-import { Rasterize } from './../pipeline/Rasterize.js';
+import { ModelShading } from '../scene/ModelShading.js';
+import { Matrix } from '../scene/Matrix.js';
+import { Pipeline } from '../pipeline/Pipeline.js';
+import { Rasterize } from '../pipeline/Rasterize.js';
 import { FrameBuffer } from '../framebuffer/FrameBuffer.js';
 
-export class InteractiveAbstractClient {
+export class Abstract {
 
     constructor() {
         this.letterbox = false;
