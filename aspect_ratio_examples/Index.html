@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset=utf-8>
-		<title>Aspect Ratio Examples</title>
+		<title id="title">Aspect Ratio Examples</title>
 		<link rel="shortcut icon" href="#" />
 		<style>
 			body { 
@@ -21,6 +21,13 @@
 	<body>
 		<div id="resizer">
 			<canvas id="pixels" width=600 height=600></canvas>
+		</div>
+		<div style="float: left;">
+			<button title="Distort" hidden>Distort</button>
+			<button title="Letterbox">Letterbox</button>
+			<button title="Crop">Crop</button>
+			<button title="Window to the World">WttW</button>
+			<button title="Pan and Scan">P&S</button>
 		</div>
 
 		<script src="../scene/Scene.js" type="module"></script>
@@ -43,13 +50,13 @@
 
 		<script src="../models/Disk.js" type="module"></script>
 
-		<script src="AspectRatioExamples.js" type="module"></script>
+		<script src="Index.js" type="module"></script>
 
-        <script src="Circle_v0_Abstract.js" type="module"></script>
-		<script src="Circle_v1_Distort.js" type="module"></script>
-		<script src="Circle_v2_Letterbox.js" type="module"></script>
-		<script src="Circle_v3_Crop.js" type="module"></script>
-		<script src="Circle_v4_WindowToTheWorld" type="module"></script>
-		<script src="Circle_v5_PanAndScan.js" type="module"></script>
+        <script src="Abstract.js" type="module"></script>
+		<script src="Distort.js" type="module"></script>
+		<script src="Letterbox.js" type="module"></script>
+		<script src="Crop.js" type="module"></script>
+		<script src="WindowToTheWorld.js" type="module"></script>
+		<script src="PanAndScan.js" type="module"></script>
 	</body>
 </html>

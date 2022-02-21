@@ -1,17 +1,9 @@
 import { Scene } from './../scene/Scene.js';
-import { ModelShading } from './../scene/ModelShading.js';
-import { Vector } from './../scene/Vector.js';
 import { Vertex } from './../scene/Vertex.js';
 import { Matrix } from './../scene/Matrix.js';
-import { Camera } from './../scene/Camera.js';
 import { LineSegment } from './../scene/LineSegment.js';
 import { Model } from './../scene/Model.js';
 import { Position } from './../scene/Position.js';
-import { OrthographicNormalizeMatrix } from './../scene/OrthographicNormalizeMatrix.js';
-import { PerspectiveNormalizeMatrix } from './../scene/PerspectiveNormalizeMatrix.js';
-
-import { Pipeline } from './../pipeline/Pipeline.js';
-
 import { InteractiveAbstractClient } from './InteractiveAbstractClient.js';
 import { Color } from '../color/Color.js';
 
@@ -52,18 +44,3 @@ export class InteractiveTriangle extends InteractiveAbstractClient {
     }
 
 }
-var interactiveTriangle = new InteractiveTriangle();
-console.log(interactiveTriangle);
-//interactiveCube.setTransformations();
-document.addEventListener("keypress", function(e) {
-    interactiveTriangle.keyPressed(e)
-});
-
-// window.onresize = function() {
-//     interactiveTriangle.setupViewing();
-// };
-
-var resizer = new ResizeObserver(function () {
-    interactiveTriangle.setupViewing();
-});
-resizer.observe(document.getElementById("resizer"));

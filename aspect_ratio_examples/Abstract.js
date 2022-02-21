@@ -9,7 +9,7 @@ import { Position } from '../scene/Position.js';
 import { Scene } from '../scene/Scene.js';
 import { Vertex } from '../scene/Vertex.js';
 
-export class Circle_v0_Abstract {
+export class Abstract {
 
     constructor() {
         this.SIZE = 600;

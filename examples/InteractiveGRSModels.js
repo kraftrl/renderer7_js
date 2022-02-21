@@ -66,17 +66,3 @@ export class InteractiveGRSModels extends InteractiveAbstractClient {
         this.setupViewing();
     }
 }
-
-var interactiveGRSModels = new InteractiveGRSModels();
-document.addEventListener("keypress", function(e) {
-    interactiveGRSModels.keyPressed(e)
-});
-
-// window.onresize = function() {
-//     interactiveGRSModels.setupViewing();
-// };
-
-var resizer = new ResizeObserver(function () {
-    interactiveGRSModels.setupViewing();
-});
-resizer.observe(document.getElementById("resizer"));

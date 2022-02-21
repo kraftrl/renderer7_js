@@ -131,33 +131,33 @@ export class InteractiveAbstractClient {
     }
 
     keyPressed(e) {
-         var c = e.key;
-         if ('h' == c) {
+        const c = e.key;
+        if ('h' == c) {
             print_help_message();
             
-         }
-         else if ('d' == c) {
+        }
+        else if ('d' == c) {
             this.modelArray[this.currentModel].debug = !this.modelArray[this.currentModel].debug;
             Clip.debug = !Clip.debug;
-         }
-         else if ('D' == c) {
+        }
+        else if ('D' == c) {
             Rasterize.debug = ! Rasterize.debug;
-         }
-         else if ('/' == c) {
+        }
+        else if ('/' == c) {
             this.currentModel = (this.currentModel + 1) % this.modelArray.length;
             this.scene.getPosition(0).setModel( this.modelArray[this.currentModel] );
-         }
-         else if ('?' == c) {
+        }
+        else if ('?' == c) {
             if (--this.currentModel < 0) this.currentModel = this.modelArray.length - 1;
             this.scene.getPosition(0).setModel( this.modelArray[this.currentModel] );
-         }
-         else if ('p' == c) {
+        }
+        else if ('p' == c) {
             this.scene.camera.perspective = !scene.camera.perspective;
             var p = this.scene.camera.perspective ? "perspective" : "orthographic";
             console.log("Using " + p + " projection");
             this.cameraChanged = true; 
-         }
-         else if ('l' == c) {
+        }
+        else if ('l' == c) {
             this.letterbox = !this.letterbox;
             if (this.letterbox) {
                 console.log("Letter boxing is turned on");
@@ -165,8 +165,8 @@ export class InteractiveAbstractClient {
             else {
                 console.log("Letter boxing is turned off")
             }
-         }
-         else if ('r' == c || 'R' == c) {
+        }
+        else if ('r' == c || 'R' == c) {
             // Change the aspect ratio of the camera's view rectangle.
             if ('r' == c) {
                 this.aspectRatio -= 0.1;
@@ -179,8 +179,8 @@ export class InteractiveAbstractClient {
             this.right =  this.top * this.aspectRatio;
             this.left  = -this.right;
             console.log("Aspect ratio (of camera's image rectangle) = " + this.aspectRatio);
-         }
-         else if ('o' == c || 'O' == c) {
+        }
+        else if ('o' == c || 'O' == c) {
             // Change left, right, bottom, and top.
             // (Keep the aspect ratio fixed.)
             if ('o' == c) {
