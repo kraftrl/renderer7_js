@@ -1,17 +1,17 @@
-import { Scene } from './../scene/Scene.js';
-import { ModelShading } from './../scene/ModelShading.js';
-import { Matrix } from './../scene/Matrix.js';
-import { Position } from './../scene/Position.js';
-import { Torus } from './../models/Torus.js';
-import { CylinderSector } from './../models/CylinderSector.js';
-import { ObjSimpleModel } from './../models/ObjSimpleModel.js';
-import { Sphere } from './../models/Sphere.js';
-import { Cube2 } from './../models/Cube2.js';
-import { PanelXY } from './../models/PanelXY.js';
-import { PanelXZ } from './../models/PanelXZ.js';
-import { InteractiveAbstractClient } from './InteractiveAbstractClient.js';
+import { Scene } from '../scene/Scene.js';
+import { ModelShading } from '../scene/ModelShading.js';
+import { Matrix } from '../scene/Matrix.js';
+import { Position } from '../scene/Position.js';
+import { Torus } from '../models/Torus.js';
+import { CylinderSector } from '../models/CylinderSector.js';
+import { ObjSimpleModel } from '../models/ObjSimpleModel.js';
+import { Sphere } from '../models/Sphere.js';
+import { Cube2 } from '../models/Cube2.js';
+import { PanelXY } from '../models/PanelXY.js';
+import { PanelXZ } from '../models/PanelXZ.js';
+import { Abstract } from './Abstract.js';
 
-export class InteractiveModels extends InteractiveAbstractClient {
+export class Models extends Abstract {
     /**
        This constructor instantiates the Scene object
        and initializes it with appropriate geometry.
