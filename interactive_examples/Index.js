@@ -3,7 +3,8 @@ import { GRSModels } from "./GRSModels.js";
 import { Models } from "./Models.js";
 import { Triangle } from "./Triangle.js";
 
-setListeners(new Cube());
+var client = new Cube();
+setListeners();
 
 const buttons = document.getElementsByTagName('button');
 for (let button of buttons) {
@@ -18,17 +19,18 @@ function goToClient(element) {
     document.getElementById("title").innerText = "Interactive " + element.innerText;
 
     if (element.innerText == "Cube") {
-        setListeners(new Cube());
+        client = new Cube();
     } else if (element.innerText == "Triangle") {
-        setListeners(new Triangle());
+        client = new Triangle();
     } else if (element.innerText == "Models") {
-        setListeners(new Models());
+        client = new Models();
     } else if (element.innerText == "GRS Models") {
-        setListeners(new GRSModels());
+        client = new GRSModels();
     }
+    setListeners();
 }
 
-function setListeners(client) {
+function setListeners() {
     console.log(client);
     //client.setTransformations();
     document.addEventListener("keypress", function(e) {

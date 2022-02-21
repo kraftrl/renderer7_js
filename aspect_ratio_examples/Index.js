@@ -41,7 +41,7 @@ function setListeners() {
     document.addEventListener("keypress", function(e) {
         client.keyPressed(e);
     });
-    const resizer = new ResizeObserver(function () {        
+    const resizer = new ResizeObserver(function () {   
         const resizer = document.getElementById("resizer");
         const w = resizer.offsetWidth;
         const h = resizer.offsetHeight;
