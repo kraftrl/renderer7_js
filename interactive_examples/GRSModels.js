@@ -1,13 +1,13 @@
-import { Scene } from './../scene/Scene.js';
-import { ModelShading } from './../scene/ModelShading.js';
-import { Matrix } from './../scene/Matrix.js';
-import { Position } from './../scene/Position.js';
-import { GRSModel } from './../models/GRSModel.js';
-import { Axes2D } from './../models/Axes2D.js';
-import { InteractiveAbstractClient } from './InteractiveAbstractClient.js';
+import { Scene } from '../scene/Scene.js';
+import { ModelShading } from '../scene/ModelShading.js';
+import { Matrix } from '../scene/Matrix.js';
+import { Position } from '../scene/Position.js';
+import { GRSModel } from '../models/GRSModel.js';
+import { Axes2D } from '../models/Axes2D.js';
 import { Color } from '../color/Color.js';
+import { Abstract } from './Abstract.js';
 
-export class InteractiveGRSModels extends InteractiveAbstractClient {
+export class GRSModels extends Abstract {
     constructor() {
 
         super();

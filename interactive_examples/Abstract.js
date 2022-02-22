@@ -1,12 +1,20 @@
-import { ModelShading } from './../scene/ModelShading.js';
-import { Matrix } from './../scene/Matrix.js';
-import { Pipeline } from './../pipeline/Pipeline.js';
-import { Rasterize } from './../pipeline/Rasterize.js';
+import { ModelShading } from '../scene/ModelShading.js';
+import { Matrix } from '../scene/Matrix.js';
+import { Pipeline } from '../pipeline/Pipeline.js';
+import { Rasterize } from '../pipeline/Rasterize.js';
 import { FrameBuffer } from '../framebuffer/FrameBuffer.js';
 
-export class InteractiveAbstractClient {
+export class Abstract {
 
     constructor() {
+        const resizer = document.getElementById("resizer");
+        const w = resizer.offsetWidth;
+        const h = resizer.offsetHeight;
+        this.ctx = document.getElementById("pixels").getContext("2d");
+        this.ctx.canvas.width = w;
+        this.ctx.canvas.height = h;
+        this.fb = new FrameBuffer(undefined, w, h);
+
         this.letterbox = false;
         this.aspectRatio = 1.0;
         this.near   =  1.0;
@@ -35,8 +43,6 @@ export class InteractiveAbstractClient {
         this.scene = null;
         this.modelArray = [];
         this.currentModel = 0;
-        
-        this.ctx = document.getElementById("pixels").getContext("2d");
     }
 
     // A client program can override how transformations are preformed.
@@ -152,7 +158,7 @@ export class InteractiveAbstractClient {
             this.scene.getPosition(0).setModel( this.modelArray[this.currentModel] );
          }
          else if ('p' == c) {
-            this.scene.camera.perspective = !scene.camera.perspective;
+            this.scene.camera.perspective = !this.scene.camera.perspective;
             var p = this.scene.camera.perspective ? "perspective" : "orthographic";
             console.log("Using " + p + " projection");
             this.cameraChanged = true; 
@@ -199,10 +205,10 @@ export class InteractiveAbstractClient {
         }
         else if ('f' == c) {
             this.showFBaspectRatio = !this.showFBaspectRatio;
-            if (showFBaspectRatio) {
+            if (this.showFBaspectRatio) {
                 // Get the new size of the FrameBufferPanel.
-                var w = ctx.canvas.width;
-                var h = ctx.canvas.height;
+                var w = this.ctx.canvas.width;
+                var h = this.ctx.canvas.height;
                 console.log("Aspect ratio (of framebuffer) = " + w/h);
             }
         }
@@ -228,7 +234,7 @@ export class InteractiveAbstractClient {
         }
         else if ('M' == c) {
             this.showCamera = !this.showCamera;
-            if (showCamera) this.cameraChanged = true;
+            if (this.showCamera) this.cameraChanged = true;
         }
         else if ('m' == c) {
             this.showMatrix = !this.showMatrix;
@@ -281,23 +287,14 @@ export class InteractiveAbstractClient {
     }
 
     display(){
-        const resizer = document.getElementById("resizer");
-        const w = resizer.offsetWidth;
-        const h = resizer.offsetHeight;
-        this.ctx = document.getElementById("pixels").getContext("2d");
-        if (this.ctx == null) {
-            console.log("cn.getContext(2d) is null");
-            return;
-        }
-        this.ctx.canvas.width = w;
-        this.ctx.canvas.height = h;
-        const fb = new FrameBuffer(undefined, w, h);
-        Pipeline.render(this.scene, fb.vp);
+        this.fb.clearFB();
+        this.fb.vp.clearVP();
+        Pipeline.render(this.scene, this.fb.vp);
     
         // maybe should just store this imageData in Framebuffer
-        const imageData = this.ctx.getImageData(0, 0, w, h);
-        // console.log(fb);
-        imageData.data.set(fb.pixel_buffer);
-        this.ctx.putImageData(imageData, fb.vp.vp_ul_x, fb.vp.vp_ul_y);
+        const imageData = this.ctx.getImageData(0, 0, this.fb.width, this.fb.height);
+        // console.log(this.fb);
+        imageData.data.set(this.fb.pixel_buffer);
+        this.ctx.putImageData(imageData, this.fb.vp.vp_ul_x, this.fb.vp.vp_ul_y);
     }
 }

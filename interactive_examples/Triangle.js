@@ -1,13 +1,13 @@
-import { Scene } from './../scene/Scene.js';
-import { Vertex } from './../scene/Vertex.js';
-import { Matrix } from './../scene/Matrix.js';
-import { LineSegment } from './../scene/LineSegment.js';
-import { Model } from './../scene/Model.js';
-import { Position } from './../scene/Position.js';
-import { InteractiveAbstractClient } from './InteractiveAbstractClient.js';
+import { Scene } from '../scene/Scene.js';
+import { Vertex } from '../scene/Vertex.js';
+import { Matrix } from '../scene/Matrix.js';
+import { LineSegment } from '../scene/LineSegment.js';
+import { Model } from '../scene/Model.js';
+import { Position } from '../scene/Position.js';
 import { Color } from '../color/Color.js';
+import { Abstract } from './Abstract.js';
 
-export class InteractiveTriangle extends InteractiveAbstractClient {
+export class Triangle extends Abstract {
     constructor() {
         super();
 

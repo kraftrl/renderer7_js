@@ -9,8 +9,8 @@ export class Rasterize {
 
     static rasterize(model, ls, vp) {
         // Make local copies of several values.
-        var w = vp.parent.width;
-        var h = vp.parent.height;
+        var w = vp.getWidthVP();
+        var h = vp.getHeightVP();
 
         var v0 = model.vertexList[ls.vIndex[0]];
         var v1 = model.vertexList[ls.vIndex[1]];
