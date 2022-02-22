@@ -3,7 +3,7 @@ import { Vertex } from './../scene/Vertex.js';
 import { LineSegment } from './../scene/LineSegment.js';
 
 export class Axes2D extends Model{
-    constructor(xMin = -1, xMax = 1, yMin = -1, yMax = 1, z = 0.0, xMarks = 5, yMarks = 5) {
+    constructor(xMin = -1, xMax = 1, yMin = -1, yMax = 1, xMarks = 5, yMarks = 5, z = 0.0) {
 		super("Axes2D");
 
 		// x-axis

@@ -33,7 +33,7 @@ export class Model {
         this.colorList = colorList;
         this.visible = visible;
         this.debug = debug;
-        console.log(this.name);
+        //console.log(this.name);
     }
 
     /**
