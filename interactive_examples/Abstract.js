@@ -7,19 +7,27 @@ import { FrameBuffer } from '../framebuffer/FrameBuffer.js';
 export class Abstract {
 
     constructor() {
+        const resizer = document.getElementById("resizer");
+        const w = resizer.offsetWidth;
+        const h = resizer.offsetHeight;
+        this.ctx = document.getElementById("pixels").getContext("2d");
+        this.ctx.canvas.width = w;
+        this.ctx.canvas.height = h;
+        this.fb = new FrameBuffer(undefined, w, h);
+
         this.letterbox = false;
-        this.aspectRatio = 1.0;
-        this.near   =  1.0;
-        this.left   = -1.0;
-        this.right  =  1.0;
-        this.bottom = -1.0;
-        this.top    =  1.0;
+        this.aspectRatio = 1;
+        this.near   =  1;
+        this.left   = -1;
+        this.right  =  1;
+        this.bottom = -1;
+        this.top    =  1;
         this.showCamera = false;
         this.cameraChanged = false;
         this.showFBaspectRatio = false;
 
         this.showMatrix = false;
-        this.pushback = 2.0;
+        this.pushback = 2;
         
         // I am unable to get the method chaining to work. Keep on getting NaNs that I can't trace.        
         /*
@@ -35,8 +43,7 @@ export class Abstract {
         this.scene = null;
         this.modelArray = [];
         this.currentModel = 0;
-        
-        this.ctx = document.getElementById("pixels").getContext("2d");
+        this.print_help_message();
     }
 
     // A client program can override how transformations are preformed.
@@ -86,27 +93,27 @@ export class Abstract {
         }
         else if ('u' == c) {
             //this.xRotation[0] -= 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateX(-2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateX(-2));
         }
         else if ('U' == c) {
             //this.xRotation[0] += 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateX(2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateX(2));
         }
         else if ('v' == c) {
             //this.yRotation[0] -= 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateY(-2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateY(-2));
         }
         else if ('V' == c) {
             //this.yRotation[0] += 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateY(2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateY(2));
         }
         else if ('w' == c) {
             //this.zRotation[0] -= 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateZ(-2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateZ(-2));
         }
         else if ('W' == c) {
             //this.zRotation[0] += 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateZ(2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateZ(2));
         }
 
 
@@ -133,8 +140,7 @@ export class Abstract {
     keyPressed(e) {
         const c = e.key;
         if ('h' == c) {
-            print_help_message();
-            
+            this.print_help_message();            
         }
         else if ('d' == c) {
             this.modelArray[this.currentModel].debug = !this.modelArray[this.currentModel].debug;
@@ -150,9 +156,9 @@ export class Abstract {
         else if ('?' == c) {
             if (--this.currentModel < 0) this.currentModel = this.modelArray.length - 1;
             this.scene.getPosition(0).setModel( this.modelArray[this.currentModel] );
-        }
-        else if ('p' == c) {
-            this.scene.camera.perspective = !scene.camera.perspective;
+         }
+         else if ('p' == c) {
+            this.scene.camera.perspective = !this.scene.camera.perspective;
             var p = this.scene.camera.perspective ? "perspective" : "orthographic";
             console.log("Using " + p + " projection");
             this.cameraChanged = true; 
@@ -199,10 +205,10 @@ export class Abstract {
         }
         else if ('f' == c) {
             this.showFBaspectRatio = !this.showFBaspectRatio;
-            if (showFBaspectRatio) {
+            if (this.showFBaspectRatio) {
                 // Get the new size of the FrameBufferPanel.
-                var w = ctx.canvas.width;
-                var h = ctx.canvas.height;
+                var w = this.ctx.canvas.width;
+                var h = this.ctx.canvas.height;
                 console.log("Aspect ratio (of framebuffer) = " + w/h);
             }
         }
@@ -228,7 +234,7 @@ export class Abstract {
         }
         else if ('M' == c) {
             this.showCamera = !this.showCamera;
-            if (showCamera) this.cameraChanged = true;
+            if (this.showCamera) this.cameraChanged = true;
         }
         else if ('m' == c) {
             this.showMatrix = !this.showMatrix;
@@ -277,27 +283,39 @@ export class Abstract {
             this.cameraChanged = false;
         }
         
-        this.display();
+        // render again
+        this.fb.clearFB();
+        this.fb.vp.clearVP();
+        Pipeline.render(this.scene, this.fb.vp);
+    
+        const imageData = this.ctx.getImageData(0, 0, this.fb.width, this.fb.height);
+        imageData.data.set(this.fb.pixel_buffer);
+        this.ctx.putImageData(imageData, this.fb.vp.vp_ul_x, this.fb.vp.vp_ul_y);
     }
 
-    display(){
-        const resizer = document.getElementById("resizer");
-        const w = resizer.offsetWidth;
-        const h = resizer.offsetHeight;
-        this.ctx = document.getElementById("pixels").getContext("2d");
-        if (this.ctx == null) {
-            console.log("cn.getContext(2d) is null");
-            return;
-        }
-        this.ctx.canvas.width = w;
-        this.ctx.canvas.height = h;
-        const fb = new FrameBuffer(undefined, w, h);
-        Pipeline.render(this.scene, fb.vp);
-    
-        // maybe should just store this imageData in Framebuffer
-        const imageData = this.ctx.getImageData(0, 0, w, h);
-        // console.log(fb);
-        imageData.data.set(fb.pixel_buffer);
-        this.ctx.putImageData(imageData, fb.vp.vp_ul_x, fb.vp.vp_ul_y);
+    print_help_message()
+    {
+        console.log("Use the 'd' key to toggle debugging information on and off for the current model.");
+        console.log("Use the '/' key to cycle through the models.");
+        console.log("Use the 'p' key to toggle between parallel and orthographic projection.");
+        console.log("Use the x/X, y/Y, z/Z, keys to translate the model along the x, y, z axes.");
+        console.log("Use the u/U, v/V, w/W, keys to rotate the model around the x, y, z axes.");
+        console.log("Use the s/S keys to scale the size of the model.");
+        console.log("Use the 'c' key to change the random solid model color.");
+        console.log("Use the 'C' key to randomly change model's colors.");
+        console.log("Use the 'e' key to change the random vertex colors.");
+        console.log("Use the 'e' key to change the random solid edge colors.");
+        console.log("Use the 'E' key to change the random edge colors.");
+        console.log("Use the 'a' key to toggle antialiasing on and off.");
+        console.log("Use the 'g' key to toggle gamma correction on and off.");
+        console.log("Use the n/N keys to move the camera's near plane.");
+        console.log("Use the o/O keys to change the size of the camera's view rectangle.");
+        console.log("Use the r/R keys to change the aspect ratio of the camera's view rectangle.");
+        console.log("Use the 'f' key to toggle showing framebufer aspect ratio.");
+        console.log("Use the 'l' key to toggle letterboxing on and off.");
+        console.log("Use the 'M' key to toggle showing the Camera normalization matrix.");
+        console.log("Use the 'm' key to toggle showing the Model transformation matrix.");
+        console.log("Use the '=' key to reset the Model transformation matrix to the identity.");
+        console.log("Use the 'h' key to redisplay this help message.");
     }
 }

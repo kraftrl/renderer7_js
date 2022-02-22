@@ -12,7 +12,7 @@ import { Vertex } from '../scene/Vertex.js';
 export class Abstract {
 
     constructor() {
-        const resizer = document.getElementById("resizer");
+        this.resizer = document.getElementById("resizer");
         const w = resizer.offsetWidth;
         const h = resizer.offsetHeight;
         this.ctx = document.getElementById("pixels").getContext("2d");
@@ -20,7 +20,7 @@ export class Abstract {
         this.ctx.canvas.height = h;
         this.fb = new FrameBuffer(undefined, w, h);
 
-        this.SIZE = 600;
+        this.SIZE = 300;
         this.showCamera = false;
         this.cameraChanged = false;
         this.showFBaspectRatio = false;
@@ -36,6 +36,7 @@ export class Abstract {
         this.scene.camera.projOrtho(this.left, this.right, this.bottom, this.top);
         var model = new Disk(1, 10, 40);
         this.modelArray = [ model ];
+        this.modelToRotate = model;
         ModelShading.setRandomColor(model);
         var position = new Position(this.modelArray[0]);
         this.scene.addPosition([ position ]);
@@ -43,9 +44,10 @@ export class Abstract {
         this.fps = 30;
         const thisClass = this;
         this.timer = setInterval(function() {
-            thisClass.rotateModel(model, 10); // 10 degrees
+            thisClass.rotateModel(thisClass.modelToRotate, 10); // 10 degrees
             thisClass.setupViewing();
         }, 1000/this.fps);
+        this.print_help_message();
     }
 
     moveModel(model, deltaX, deltaY, deltaZ) {        
@@ -83,19 +85,14 @@ export class Abstract {
             this.cameraChanged = false;
         }
         
-        this.display();
-    }
-
-    display(){
+        //render again
         this.fb.clearFB();
         this.fb.vp.clearVP();
         Pipeline.render(this.scene, this.fb.vp);
     
-        // maybe should just store this imageData in Framebuffer
         const imageData = this.ctx.getImageData(0, 0, this.fb.width, this.fb.height);
-        // console.log(fb);
         imageData.data.set(this.fb.pixel_buffer);
-        this.ctx.putImageData(imageData, this.fb.vp.vp_ul_x, this.fb.vp.vp_ul_y);
+        this.ctx.putImageData(imageData, 0, 0);
     }
 
     keyPressed(e) {
@@ -103,7 +100,7 @@ export class Abstract {
         if ('h' == c) {
             print_help_message();        
         } else if ('d' == c) {
-            this.modelArray[this.currentModel].debug = !this.modelArray[this.currentModel].debug;
+            this.modelArray[0].debug = !this.modelArray[0].debug;
             Clip.debug = !Clip.debug;
         } else if ('D' == c) {
             Rasterize.debug = ! Rasterize.debug;
@@ -115,11 +112,8 @@ export class Abstract {
             console.log("Gamma correction is turned " + Rasterize.doGamma ? "On" : "Off");
         } else if ('f' == c) {
             this.showFBaspectRatio = !this.showFBaspectRatio;
-            if (showFBaspectRatio) {
-                // Get the new size of the FrameBufferPanel.
-                var w = ctx.canvas.width;
-                var h = ctx.canvas.height;
-                console.log("Aspect ratio (of framebuffer) = " + w/h);
+            if (this.showFBaspectRatio) {
+                console.log("Aspect ratio (of framebuffer) = " + this.fb.width/this.fb.height);
             }
         } else if ('c' == c) {
             // Change the solid random color of the current model.
@@ -138,7 +132,7 @@ export class Abstract {
             ModelShading.setRainbowLineSegmentColors(this.scene.getPosition(0).model);
         } else if ('M' == c) {
             this.showCamera = !this.showCamera;
-            if (showCamera) this.cameraChanged = true;
+            if (this.showCamera) this.cameraChanged = true;
         } else if ('m' == c) {
             this.showMatrix = !this.showMatrix;
         } else if ('s' == c) {
@@ -148,7 +142,7 @@ export class Abstract {
             // Start the rotation.
             const thisClass = this;
             this.timer = setInterval(function() {
-                thisClass.rotateModel(thisClass.modelArray[0], 10); // 10 degrees
+                thisClass.rotateModel(thisClass.modelToRotate, 10); // 10 degrees
                 thisClass.setupViewing();
             }, 1000/this.fps);
         } else if ('1' == c) {
@@ -170,8 +164,7 @@ export class Abstract {
         } else if ('9' == c) {
             this.mode = 9;
         }
-
-        console.log(this);
+        //console.log(this);
 
         // Render again.
         this.setupViewing();

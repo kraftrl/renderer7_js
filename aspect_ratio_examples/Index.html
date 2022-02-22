@@ -13,23 +13,36 @@
 				float: left;
 				overflow: hidden;
 				resize: both;
-				width: 600px;
-				height: 600px;
+				width: 400px;
+				height: 400px;
 			}
 		</style>
 	</head>
 
 	<body>
 		<div id="resizer">
-			<canvas id="pixels" width=600 height=600></canvas>
+			<canvas id="pixels" width=400 height=400></canvas>
 		</div>
-		<div style="float: left;">
-			<button title="Distort" hidden>Distort</button>
-			<button title="Letterbox">Letterbox</button>
-			<button title="Crop">Crop</button>
-			<button title="Window to the World">WttW</button>
-			<button title="Pan and Scan">P&S</button>
+		<div style="float: left; margin-left: 3px;">
+			<button class="client" title="Distort">Distort</button>
+			<button class="client" title="Letterbox">Letterbox</button>
+			<button class="client" title="Crop">Crop</button>
+			<button class="client" title="Window to the World">WttW</button>
+			<button class="client" title="Pan and Scan">P&S</button>
+			<div class="slidecontainer" style="margin-top: 50px;" hidden>
+				<label>Horizontal Slider</label>
+				<input type="range" min="1" max="100" value="50" class="slider" id="sliderH" />
+			</div>
+			<div class="slidecontainer" style="margin-top: 10px;" hidden>
+				<label>Vertical Slider</label>
+				<input type="range" min="1" max="100" value="50" class="slider" id="sliderV" />
+			</div>
 		</div>
+		<div style="float: right;">
+			<button style="margin-right: 2px;" onclick="location = location.origin;">Home</button>
+			<button style="margin-right: 2px;" onclick="location = location.origin + '/interactive_examples';">Interactive Examples</button>
+		</div>
+
 
 		<script src="../scene/Scene.js" type="module"></script>
 		<script src="../scene/Camera.js" type="module"></script>
@@ -50,6 +63,7 @@
 		<script src="../pipeline/Model2View.js" type="module"></script>
 
 		<script src="../models/Disk.js" type="module"></script>
+		<script src="../models/SquareGrid.js" type="module"></script>
 
 		<script src="Index.js" type="module"></script>
 

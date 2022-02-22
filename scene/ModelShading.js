@@ -3,7 +3,7 @@ import { Color } from '../color/Color.js';
 
 export class ModelShading {
 
-    static setColor(model, c) {
+    static setColor(model, c = Color.Blue) {
         if (model.colorList.length == 0) {
             for (var v of model.vertexList) {
                 model.colorList.push(c);

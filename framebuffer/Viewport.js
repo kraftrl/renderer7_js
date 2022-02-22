@@ -91,8 +91,8 @@ export class Viewport
     setViewport(vp_ul_x, vp_ul_y, width, height) {
         this.vp_ul_x = vp_ul_x;
         this.vp_ul_y = vp_ul_y;
-        this.vp_lr_x = vp_ul_x + width - 1;
-        this.vp_lr_y = vp_ul_y + height - 1;
+        this.vp_lr_x = vp_ul_x + width;
+        this.vp_lr_y = vp_ul_y + height;
     }
 
     /**
@@ -101,7 +101,7 @@ export class Viewport
         @return width of this {@code Viewport} rectangle
     */
     getWidthVP() {
-        return this.vp_lr_x - this.vp_ul_x + 1;
+        return this.vp_lr_x - this.vp_ul_x;
     }
 
     /**
@@ -110,7 +110,7 @@ export class Viewport
         @return height of this {@code Viewport} rectangle
     */
     getHeightVP() {
-        return this.vp_lr_y - this.vp_ul_y + 1;
+        return this.vp_lr_y - this.vp_ul_y;
     }
 
     /**

@@ -8,7 +8,8 @@ import { FrameBuffer } from "../framebuffer/FrameBuffer.js";
 var client = new Distort();
 setListeners();
 
-const buttons = document.getElementsByTagName('button');
+const slidecontainers = document.getElementsByClassName("slidecontainer");
+const buttons = document.getElementsByClassName('client');
 for (let button of buttons) {
     button.onclick = function() { goToClient(button); }
 }
@@ -18,7 +19,11 @@ function goToClient(element) {
         button.style.display = "inline-block";
     }
     element.style.display = "none";
-    document.getElementById("title").innerText = element.innerText;
+    for (let slider of slidecontainers) {
+        slider.style.display = "none";
+    }
+    document.getElementById("title").innerText = element.title;
+    client.resizer.style.overflow = "hidden";
 
     clearInterval(client.timer);
     if (element.innerText == "Distort") {
@@ -31,6 +36,9 @@ function goToClient(element) {
         client = new WindowToTheWorld();
     } else if (element.innerText == "P&S") {
         client = new PanAndScan();
+        for (let slider of slidecontainers) {
+            slider.style.display = "block";
+        }
     }
     setListeners();
 }
@@ -41,14 +49,13 @@ function setListeners() {
     document.addEventListener("keypress", function(e) {
         client.keyPressed(e);
     });
-    const resizer = new ResizeObserver(function () {   
-        const resizer = document.getElementById("resizer");
-        const w = resizer.offsetWidth;
-        const h = resizer.offsetHeight;
+    const resizer = new ResizeObserver(function () {
+        const w = client.resizer.offsetWidth;
+        const h = client.resizer.offsetHeight;
         client.ctx.canvas.width = w;
         client.ctx.canvas.height = h;
         client.fb = new FrameBuffer(undefined, w, h);
         client.setupViewing();
     });
-    resizer.observe(document.getElementById("resizer"));
+    resizer.observe(client.resizer);
 }

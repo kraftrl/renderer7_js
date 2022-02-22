@@ -196,7 +196,7 @@ export class FrameBuffer
            this.pixel_buffer[index + 3] = c[3];
        }
        else {
-           console.log('FrameBuffer: Bad pixel coordinate (' + x + ', ' + y + '); Color: ' + c);
+           //console.log('FrameBuffer: Bad pixel coordinate (' + x + ', ' + y + '); Color: ' + c);
            //return new Uint8ClampedArray([255, 255, 255, 255]);
        }
    }

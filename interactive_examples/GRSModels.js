@@ -24,7 +24,7 @@ export class GRSModels extends Abstract {
         this.scene.camera.projPerspectiveReset();
 
         // Push the position away from where the camera is.
-        this.pushback = -2.0;
+        this.pushback = -2;
         position.matrix = Matrix.translate(0, 0, this.pushback);
 
         // Instantiate all the grs models.

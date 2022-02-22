@@ -24,10 +24,14 @@
 			<canvas id="pixels" width=600 height=600></canvas>
 		</div>
 		<div style="float: left;">
-			<button title="InteractiveCube.html" hidden>Cube</button>
-			<button title="InteractiveTriangle.html">Triangle</button>
-			<button title="InteractiveModels.html">Models</button>
-			<button title="InteractiveGRSModels.html">GRS Models</button>
+			<button class="client" title="InteractiveCube.html" hidden>Cube</button>
+			<button class="client" title="InteractiveTriangle.html">Triangle</button>
+			<button class="client" title="InteractiveModels.html">Models</button>
+			<button class="client" title="InteractiveGRSModels.html">GRS Models</button>
+		</div>
+		<div style="float: right;">
+			<button style="margin-right: 2px;" onclick="location = location.origin;">Home</button>
+			<button style="margin-right: 2px;" onclick="location = location.origin + '/aspect_ratio_examples';">Aspect Ratio Examples</button>
 		</div>
 
 		<script src="../scene/Scene.js" type="module"></script>

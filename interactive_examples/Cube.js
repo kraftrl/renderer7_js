@@ -32,14 +32,14 @@ export class Cube extends Abstract {
         //console.log(position.matrix);
 
         // Create the vertices for the Model.
-        model.addVertex([new Vertex(0.0, 0.0, 0.0), // four vertices around the bottom face
-                        new Vertex(1.0, 0.0, 0.0),
-                        new Vertex(1.0, 0.0, 1.0),
-                        new Vertex(0.0, 0.0, 1.0),
-                        new Vertex(0.0, 1.0, 0.0), // four vertices around the top face
-                        new Vertex(1.0, 1.0, 0.0),
-                        new Vertex(1.0, 1.0, 1.0),
-                        new Vertex(0.0, 1.0, 1.0)]);
+        model.addVertex([new Vertex(0, 0, 0), // four vertices around the bottom face
+                         new Vertex(1, 0, 0),
+                         new Vertex(1, 0, 1),
+                         new Vertex(0, 0, 1),
+                         new Vertex(0, 1, 0), // four vertices around the top face
+                         new Vertex(1, 1, 0),
+                         new Vertex(1, 1, 1),
+                         new Vertex(0, 1, 1)]);
 
         // Create three colors, one color for the top edges,
         // one color for the bottom edges, and

@@ -1,3 +1,4 @@
+import { FrameBuffer } from "../framebuffer/FrameBuffer.js";
 import { Cube } from "./Cube.js";
 import { GRSModels } from "./GRSModels.js";
 import { Models } from "./Models.js";
@@ -6,7 +7,7 @@ import { Triangle } from "./Triangle.js";
 var client = new Cube();
 setListeners();
 
-const buttons = document.getElementsByTagName('button');
+const buttons = document.getElementsByClassName('client');
 for (let button of buttons) {
     button.onclick = function() { goToClient(button); }
 }
@@ -36,7 +37,13 @@ function setListeners() {
     document.addEventListener("keypress", function(e) {
         client.keyPressed(e);
     });
-    const resizer = new ResizeObserver(function () {
+    const resizer = new ResizeObserver(function () {   
+        const resizer = document.getElementById("resizer");
+        const w = resizer.offsetWidth;
+        const h = resizer.offsetHeight;
+        client.ctx.canvas.width = w;
+        client.ctx.canvas.height = h;
+        client.fb = new FrameBuffer(undefined, w, h);
         client.setupViewing();
     });
     resizer.observe(document.getElementById("resizer"));
