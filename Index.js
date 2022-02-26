@@ -17,8 +17,14 @@ import { Color } from './color/Color.js';
 
 const scene = new Scene();
 
-scene.camera.projPerspectiveReset();
+//scene.camera.projPerspectiveReset();
 // console.log(scene.camera.normalizeMatrix);
+const right  = 2;
+const left   = -right;
+const top    = 2;
+const bottom = -top;
+const near = 2;
+scene.camera.projPerspective(left, right, bottom, top, near);
 
 // scene.addPosition( [new Position(new   Cube())] );
 // scene.addPosition( [new Position(Model.loadFromJSON("models/Cube.json"))])
@@ -35,18 +41,17 @@ for (var p of scene.positionList) {
     // console.log(p);
 	ModelShading.setColor(p.model, Color.Blue);
 	p.model.visible = false;
-	for(const vertex of p.model.vertexList) {
-		vertex.z = 3.0;
-	}
 }
 
-const axes = new Axes2D();
+const axes = new Axes2D(-2, +2, -2, +2, 0, 8, 8);
 ModelShading.setColor(axes, Color.Red);
-scene.addPosition( [new Position(axes)] );
-for(var vertex of axes.vertexList) {
-	vertex.z -= 1.0;
-}
+const axes_p = new Position(axes);
+scene.addPosition([axes_p]);
 
+// push models back from camera
+for (var p of scene.positionList) {
+	p.matrix = Matrix.translate(0, 0, -near);
+}
 
 // currentModel will cycle through all but
 // the last model, the axes

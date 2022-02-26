@@ -94,7 +94,7 @@ export class Camera {
         this.bottom = bottom;
         this.n = -near;
 
-        this.normalizeMatrix = PerspectiveNormalizeMatrix.build(this.left, this.right, this.bottom, this.top, this.n);
+        this.normalizeMatrix = PerspectiveNormalizeMatrix.build(this.left, this.right, this.bottom, this.top, near);
 
         this.perspective = true;
     }
