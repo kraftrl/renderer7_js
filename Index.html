@@ -10,6 +10,7 @@
 				overflow: auto;
 			}
 			#resizer {
+				float: left;
 				overflow: hidden;
 				resize: both;
 				width: 600px;
@@ -21,6 +22,10 @@
 	<body>
 		<div id="resizer">
 			<canvas id="pixels" width=600 height=600></canvas>
+		</div>
+		<div style="float: right;">
+			<button style="margin-right: 2px;" onclick="location = location.origin + '/aspect_ratio_examples';">Aspect Ratio Examples</button>
+			<button style="margin-right: 2px;" onclick="location = location.origin + '/interactive_examples';">Interactive Examples</button>
 		</div>
 
 		<script src="scene/Scene.js" type="module"></script>

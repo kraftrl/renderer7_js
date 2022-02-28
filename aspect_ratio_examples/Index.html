@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset=utf-8>
-		<title id="title">Interactive Examples</title>
+		<title id="title">Aspect Ratio Examples</title>
 		<link rel="shortcut icon" href="#" />
 		<style>
 			body { 
@@ -23,16 +23,26 @@
 		<div id="resizer">
 			<canvas id="pixels" width=600 height=600></canvas>
 		</div>
-		<div style="float: left;">
-			<button class="client" title="InteractiveCube.html" hidden>Cube</button>
-			<button class="client" title="InteractiveTriangle.html">Triangle</button>
-			<button class="client" title="InteractiveModels.html">Models</button>
-			<button class="client" title="InteractiveGRSModels.html">GRS Models</button>
+		<div style="float: left; margin-left: 3px;">
+			<button class="client" title="Distort">Distort</button>
+			<button class="client" title="Letterbox">Letterbox</button>
+			<button class="client" title="Crop">Crop</button>
+			<button class="client" title="Window to the World">WttW</button>
+			<button class="client" title="Pan and Scan">P&S</button>
+			<div class="slidecontainer" style="margin-top: 50px;" hidden>
+				<label>Horizontal Slider</label>
+				<input type="range" min="1" max="100" value="50" class="slider" id="sliderH" />
+			</div>
+			<div class="slidecontainer" style="margin-top: 10px;" hidden>
+				<label>Vertical Slider</label>
+				<input type="range" min="1" max="100" value="50" class="slider" id="sliderV" />
+			</div>
 		</div>
 		<div style="float: right;">
 			<button style="margin-right: 2px;" onclick="location = location.origin;">Home</button>
-			<button style="margin-right: 2px;" onclick="location = location.origin + '/aspect_ratio_examples';">Aspect Ratio Examples</button>
+			<button style="margin-right: 2px;" onclick="location = location.origin + '/interactive_examples';">Interactive Examples</button>
 		</div>
+
 
 		<script src="../scene/Scene.js" type="module"></script>
 		<script src="../scene/Camera.js" type="module"></script>
@@ -52,18 +62,16 @@
 		<script src="../pipeline/View2Camera.js" type="module"></script>
 		<script src="../pipeline/Model2View.js" type="module"></script>
 
-		<script src="../models/Axes2D.js" type="module"></script>
-		<script src="../models/Cube.js" type="module"></script>
-		<script src="../models/Cube2.js" type="module"></script>
-		<script src="../models/Circle.js" type="module"></script>
-		<script src="../models/CylinderSector.js" type="module"></script>
+		<script src="../models/Disk.js" type="module"></script>
+		<script src="../models/SquareGrid.js" type="module"></script>
 
 		<script src="Index.js" type="module"></script>
 
         <script src="Abstract.js" type="module"></script>
-		<script src="Cube.js" type="module"></script>
-		<script src="Triangle.js" type="module"></script>
-		<script src="Models.js" type="module"></script>
-		<script src="GRSModels.js" type="module"></script>
+		<script src="Distort.js" type="module"></script>
+		<script src="Letterbox.js" type="module"></script>
+		<script src="Crop.js" type="module"></script>
+		<script src="WindowToTheWorld.js" type="module"></script>
+		<script src="PanAndScan.js" type="module"></script>
 	</body>
 </html>

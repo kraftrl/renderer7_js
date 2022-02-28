@@ -22,21 +22,20 @@ export class Triangle extends Abstract {
 
         this.scene.addPosition([position]);
 
-        this.pushback = -1.0;
+        this.pushback = -1;
         position.matrix = Matrix.translate(0, 0, this.pushback);
         
-        model.addVertex([new Vertex(1.0, 0.0, 0.0),
-                         new Vertex(0.0, 1.0, 0.0)]);
-        var v2 =         new Vertex(0, 0, 0);
-        model.addVertex([v2]);
+        model.addVertex([new Vertex(1, 0, 0),
+                         new Vertex(0, 1, 0),
+                         new Vertex(0, 0, 0)]);
 
         // Create a different color for each vertex.
         model.addColor(Color.Red, Color.Green, Color.Blue);
         
         // Add the geometry with colors to the Model.
         model.addLineSegment([new LineSegment(0, 1, 0, 1),
-                                   new LineSegment(1, 2, 1, 2),
-                                   new LineSegment(2, 0, 2, 0)]);
+                              new LineSegment(1, 2, 1, 2),
+                              new LineSegment(2, 0, 2, 0)]);
 
         // console.log(model);
         

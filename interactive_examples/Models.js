@@ -38,10 +38,10 @@ export class Models extends Abstract {
         this.modelArray.push(new ObjSimpleModel("../assets/galleon.obj"));
         this.modelArray.push(new ObjSimpleModel("../assets/teapot.obj"));
         this.modelArray.push(new ObjSimpleModel("../assets/cessna.obj"));
-        this.modelArray.push( new Sphere(1.0, 30, 30) );
-        this.modelArray.push( new CylinderSector(0.5, 1.0, 5, 5) );
-        this.modelArray.push( new Torus(0.75, 0.25, 25, 25) );
-        this.modelArray.push( new Cube2(15, 15, 15) );
+        this.modelArray.push(new Sphere(1, 30, 30) );
+        this.modelArray.push(new CylinderSector(0.5, 1, 5, 5) );
+        this.modelArray.push(new Torus(0.75, 0.25, 25, 25) );
+        this.modelArray.push(new Cube2(15, 15, 15) );
         var floor = new PanelXZ(-7, 7, 3, -1); // floor
         var wall = new PanelXY(-7, 7, -1, 3); // wall
         
@@ -102,27 +102,27 @@ export class Models extends Abstract {
         }
         else if ('u' == c) {
             //this.xRotation[0] -= 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateX(-2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateX(-2));
         }
         else if ('U' == c) {
             //this.xRotation[0] += 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateX(2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateX(2));
         }
         else if ('v' == c) {
             //this.yRotation[0] -= 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateY(-2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateY(-2));
         }
         else if ('V' == c) {
             //this.yRotation[0] += 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateY(2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateY(2));
         }
         else if ('w' == c) {
             //this.zRotation[0] -= 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateZ(-2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateZ(-2));
         }
         else if ('W' == c) {
             //this.zRotation[0] += 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateZ(2.0));
+            this.scene.getPosition(0).matrix.mult(Matrix.rotateZ(2));
         }
     }
 }

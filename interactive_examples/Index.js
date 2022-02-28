@@ -7,7 +7,7 @@ import { Triangle } from "./Triangle.js";
 var client = new Cube();
 setListeners();
 
-const buttons = document.getElementsByTagName('button');
+const buttons = document.getElementsByClassName('client');
 for (let button of buttons) {
     button.onclick = function() { goToClient(button); }
 }
