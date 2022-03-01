@@ -268,4 +268,95 @@ export class FrameBuffer
        }
        return result;
    } 
+
+   /**
+      Write this {@code FrameBuffer} to the specified PPM file.
+   <p>
+      <a href="https://en.wikipedia.org/wiki/Netpbm_format" target="_top">
+               https://en.wikipedia.org/wiki/Netpbm_format</a>
+
+      @param filename  name of PPM image file to hold {@code FrameBuffer} data
+   */
+   dumpFB2File(filename) {
+      this.dumpPixels2File(0, 0, this.width, this.height, filename);
+   }
+
+   /**
+      Write a rectangular sub array of pixels from this {@code FrameBuffer}
+      to the specified PPM file.
+   <p>
+      <a href="https://en.wikipedia.org/wiki/Netpbm_format#PPM_example" target="_top">
+               https://en.wikipedia.org/wiki/Netpbm_format#PPM_example</a>
+   <p>
+   <a href="http://stackoverflow.com/questions/2693631/read-ppm-file-and-store-it-in-an-array-coded-with-c" target="_top">
+         http://stackoverflow.com/questions/2693631/read-ppm-file-and-store-it-in-an-array-coded-with-c</a>
+
+      @param ul_x      upper left hand x-coordinate of pixel data rectangle
+      @param ul_y      upper left hand y-coordinate of pixel data rectangle
+      @param lr_x      lower right hand x-coordinate of pixel data rectangle
+      @param lr_y      lower right hand y-coordinate of pixel data rectangle
+      @param filename  name of PPM image file to hold pixel data
+   */
+   dumpPixels2File(ul_x, ul_y, lr_x, lr_y, filename) {
+
+      let p_width  = lr_x - ul_x;
+      let p_height = lr_y - ul_y;
+
+      // This doesn't work and I don't understand why.
+      // This example never resolves the promise in fs.
+      //const fs = (async () => {
+      //   const fs = await import('node:fs/promises');
+      //   return fs;
+      //})();
+      //console.log(fs);
+
+      // call the imported function
+      //fs.writeFile(filename, "P6\n" + p_width + " " + p_height + "\n" + 255 + "\n",
+      //             err => {if (err) throw err;});
+
+
+      // dynamically import and then call writeFile (use async/await notation)
+      (async () => {
+         const fs = await import('node:fs/promises');
+         fs.writeFile(filename, "P6\n" + p_width + " " + p_height + "\n" + 255 + "\n",
+                        err => {if (err) throw err;});
+      })();
+
+      // dynamically import and then call writeFile (use the notation of promises)
+      //import('node:fs/promises').then(fs => {
+      //   fs.writeFile(filename, "P6\n" + p_width + " " + p_height + "\n" + 255 + "\n",
+      //                err => {if (err) throw err;});
+      //});
+
+      var tempPB = new Uint8ClampedArray(p_width * p_height * 3);
+
+      var tempIndex = 0;
+      for (let y = 0; y < p_height; y++) {
+         for (let x = 0; x < p_width; x++) {
+            let index = (y+ul_y) * (this.width * 4) + (x+ul_x) * 4;
+            tempPB[tempIndex] = this.pixel_buffer[index];
+            tempPB[tempIndex+1] = this.pixel_buffer[index+1];
+            tempPB[tempIndex+2] = this.pixel_buffer[index+2];
+            tempIndex+=3;
+         }
+      }
+
+      // call the imported function
+      //fs.appendFile(filename, Buffer.from(tempPB),
+      //              err => {if (err) throw err;});
+
+      // dynamically import and then call appendFile (use async/await notation)
+      //(async () => {
+      //   const fs = await import ('node:fs/promises');
+      //   fs.appendFile(filename, Buffer.from(tempPB),
+      //                 err => {if (err) throw err;});
+      //})();
+
+      // dynamically import and then call appendFile (use the notation of promises)
+      import('node:fs/promises').then(fs => {
+         fs.appendFile(filename, Buffer.from(tempPB),
+                        err => {if (err) throw err;});
+      });
+   }
+   
 }//FrameBuffer

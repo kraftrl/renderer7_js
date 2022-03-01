@@ -1,0 +1,137 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CS 45500 - Homework 5</title>
+  <meta name="description" content="CS 45500 homework 5">
+  <meta name="author" content="Roger L. Kraft">
+  <link rel="stylesheet" href="http://math.pnw.edu/~rlkraft/roger-v2.css">
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+<!--
+<header>
+  <a href="http://math.pnw.edu/~rlkraft/" title="Roger L. Kraft">Roger L. Kraft</a>
+</header>
+ -->
+<nav>
+  <ul class="nav-list" role="navigation">
+    <li><a href="../cs45500.html">CS 45500</a></li>
+    <li><a href="../syllabus.html">Syllabus</a></li>
+    <li><a href="../class.html">Lectures and Readings</a></li>
+    <li><a href="../homework.html">Homework Assignments</a></li>
+  </ul>
+  <ul class="nav-list" role="navigation">
+    <li><a href="http://math.pnw.edu/~rlkraft/roger.html">Roger Kraft</a></li>
+    <li><a href="https://pnw.edu/computer-science/">Computer Science Department</a></li>
+    <li><a href="https://pnw.edu/engineering/">School of Engineering</a></li>
+    <li><a href="https://pnw.edu/college-of-engineering-sciences/">College of Engineering & Sciences</a></li>
+    <li><a href="https://pnw.edu/">Purdue University Northwest</a></li>
+  </ul>
+</nav>
+
+<section id="Content">
+<h1>
+Programming Assignment 5<br>
+CS 45500<br>
+Computer Graphics<br>
+Fall, 2021
+</h1>
+
+<p>
+This assignment makes use of the files contained in this <a href="hw5.zip">zip file</a>.
+This assignment is due Friday, December 10.
+</p>
+
+<p>
+This assignment uses model transformations on P, N, and W letter models to create an animation. This assignment is based on <a href="http://cs.pnw.edu/~rlkraft/cs45500/for-class/renderer_7.zip">renderer_7.zip</a> and specifically on the sub-folder "<code>basic transformation examples</code>".
+</p>
+
+<p>
+In the zip file there is an animation file, <code>animation.gif</code> and an outline of a Java program <code>OfflinePNW.java</code>. You should complete the Java program so that it replicates the animation. For the P, N, and W letters, use the models contained in the zip file (that will make it easier to duplicate the animation).
+</p>
+
+<p>
+For this assignment, you should do all the transformations of a model using the model-to-view matrix in the <code>Position</code> object that holds the <code>Model</code> object.
+</p>
+
+<p>
+In the <a href="http://math.pnw.edu/~rlkraft/cs45500/for-class/renderer_7.zip">renderer_7.zip</a> zip file there is a sub folder "<code>basic transformation examples</code>" containing several examples of using translations and rotations to create animations. Build the Javadoc for that folder and open the <code>html</code> sub-folder's <code>index.html</code> file using a web browser. The Javadocs combine each example's explanation with it animated gif file.
+</p>
+
+<p>
+Also look at <code>RotationExample_v1.java</code> and its variations in <a href="http://math.pnw.edu/~rlkraft/cs45500/for-class/renderer_7.zip">renderer_7.zip</a>.
+</p>
+
+<p>
+Here is the most important thing to remember from those examples. If you want to rotate a model around the point <code>(a,b,c)</code> in the model's coordinate system, and you want this rotation to happen at the point <code>(u,v,w)</code> in the camera's view coordinate system, then you would do that with the following three transformations (where <code>position</code> is the <code>Position</code> object holding the <code>Model</code> object).
+</p>
+<pre>
+      position.matrix =    Matrix.translate(u, v, w);
+      position.matrix.mult(Matrix.rotate(theta, _,_,_));  // choose any axis
+      position.matrix.mult(Matrix.translate(-a, -b, -c));
+</pre>
+
+<p>
+You can abbreviate this a bit by chaining the multiplications.
+</p>
+<pre>
+      position.matrix = Matrix.translate(u, v, w)
+                  .mult(Matrix.rotate(theta, _,_,_))  // choose any axis
+                  .mult(Matrix.translate(-a, -b, -c));
+</pre>
+
+<p>
+Notice, for example, that the letter <code>W</code> rotates around the middle of its top edge, and this point is anchored at the point <code>(x, y) = (1.5, 1.0)</code> in camera coordinates (the red tick-marks on the x and y axes are 1/2 a unit apart).
+</p>
+
+<p>
+Notice also that the letter <code>P</code> rotates around the point <code>(x, y) = (2, 0)</code> in its model coordinates and the rotation happens at the origin in the camera coordinate system.
+</p>
+
+<p>
+In the zip file there is a folder, <code>animation_frames</code>, that contains all the frames from <code>animation.gif</code>. These individual frames make it a bit easier for you to figure out exactly what is happening in the animation.
+</p>
+
+<p>
+In the zip file there is a program <code>InteractiveLetterTester.java</code> that lets you examine more carefully the models for <code>P</code>, <code>N</code>, and <code>W</code>. Edit line 37 of that file to choose which letter model you want it to load. Use "drag-and-drop" on the script file <code>build_&_run_client.cmd</code> to run <code>InteractiveLetterTester.java</code> (and also your version of <code>OfflinePNW.java</code>).
+</p>
+
+<p>
+After you have <code>OfflinePNW.java</code> working, convert the 360 image frames that your program produces into your own "animation" file. To do this you need to download the following zip file and unzip it to your <code>C:\</code> directory.
+</p>
+<center><a href="https://imagemagick.org/download/binaries/ImageMagick-7.1.0-portable-Q8-x64.zip">ImageMagick-7.1.0-portable-Q8-x64.zip</a></center>
+<p>
+After you have <a href="http://www.imagemagick.org/script/index.php">ImageMagick</a> on your computer, and after you run your version of <code>OfflinePNW.java</code> to produce all the animation frames, just double click on the command file <code>ImageMagick-7.1.0-portable-Q8-x64s.cmd</code> and it should (I hope) use your frames to create an animation file called <code>animation.gif</code>. Double click on your animation file to see your movie.
+</p>
+
+<p>
+The <a href="http://www.imagemagick.org/script/index.php">ImageMagick</a> project updates its software fairly often and when they do, the last version disappears from their web site and is replaced by the most recent version. So the download link given just above will become broken soon. If its broken, go to their web site and look for the most recent version.
+</p>
+
+<p>
+<a href="http://math.pnw.edu/~rlkraft/cs45500/handin.html">Turn in</a> a zip file called <code>CS455Hw5Surname.zip</code> (where <code>Surname</code> is your last name) containing your version of <code>OfflinePNW.java</code> and your version of animation.gif. (Please DO NOT send me your 360 image frames.)
+</p>
+
+<p>
+This assignment is due Friday, December 10.
+</p>
+
+</section>
+
+<footer>
+  <script language="JavaScript" type="text/javascript">
+    document.write("<font size=\"-2\"><i>Last modified on " + document.lastModified + ".<\/i><\/font>");
+  </script>
+  <br>
+  <a href="mailto:rlkraft@pnw.edu"><font size="-2"><i>compliments and criticisms</i></font></a>
+</footer>
+
+</body>
+</html>
