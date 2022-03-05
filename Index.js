@@ -15,6 +15,15 @@ import { Pipeline } from './pipeline/Pipeline.js';
 import { FrameBuffer } from './framebuffer/FrameBuffer.js';
 import { Color } from './color/Color.js';
 
+// Used for transformations.
+var xTranslation = 0.0;
+var yTranslation = 0.0;
+var zTranslation = 0.0;
+var xRotation = 0.0;
+var yRotation = 0.0;
+var zRotation = 0.0;
+var scale = 1.0;
+
 const scene = new Scene();
 
 //scene.camera.projPerspectiveReset();
@@ -83,28 +92,28 @@ function keyPressed(event) {
 		console.log("Using " + p + " projection");
 	}
 	else if ('s' == c) {
-		scene.positionList[currentPosition].matrix.mult(Matrix.scaleConst(1 / 1.1));
+		scale /= 1.1; 
 	}
 	else if ('S' == c) {
-		scene.positionList[currentPosition].matrix.mult(Matrix.scaleConst(1.1));
+		scale *= 1.1;
 	}
 	else if ('x' == c) {
-		scene.positionList[currentPosition].matrix.mult(Matrix.translate(-0.1, 0, 0));
+		xTranslation += -0.1;
 	}
 	else if ('y' == c) {
-		scene.positionList[currentPosition].matrix.mult(Matrix.translate(0, -0.1, 0));
+		yTranslation += -0.1;
 	}
 	else if ('z' == c) {
-		scene.positionList[currentPosition].matrix.mult(Matrix.translate(0, 0, -0.1))
+		zTranslation += -0.1;
 	}
 	else if ('X' == c) {
-		scene.positionList[currentPosition].matrix.mult(Matrix.translate(0.1, 0, 0));
+		xTranslation += 0.1;
 	}
 	else if ('Y' == c) {
-		scene.positionList[currentPosition].matrix.mult(Matrix.translate(0, 0.1, 0));
+		yTranslation += 0.1;
 	}
 	else if ('Z' == c) {
-		scene.positionList[currentPosition].matrix.mult(Matrix.translate(0, 0, 0.1));
+		zTranslation += 0.1;
 	}
 	else if ('c' == c) {
 		ModelShading.setRandomColor( scene.positionList[currentPosition].model );
@@ -176,27 +185,27 @@ function keyPressed(event) {
 	}
 	else if ('b' == c) {
 		// rotate around x axis
-		scene.positionList[currentPosition].matrix.mult(Matrix.rotateX(15.0));
+		xRotation += 15.0;
 	}
 	else if ('B' == c) {
 		// rotate around x axis
-		scene.positionList[currentPosition].matrix.mult(Matrix.rotateX(-15.0));
+		xRotation += -15.0;
 	}
 	else if ('n' == c) {
 		// rotate around y axis
-		scene.positionList[currentPosition].matrix.mult(Matrix.rotateY(15.0));
+		yRotation += 15.0;
 	}
 	else if ('N' == c) {
 		// rotate around y axis
-		scene.positionList[currentPosition].matrix.mult(Matrix.rotateY(-15.0));
+		yRotation += -15.0;
 	}
 	else if ('m' == c) {
 		// rotate around z axis
-		scene.positionList[currentPosition].matrix.mult(Matrix.rotateZ(15.0));
+		zRotation += 15.0;
 	}
 	else if ('M' == c) {
 		// rotate around z axis
-		scene.positionList[currentPosition].matrix.mult(Matrix.rotateZ(-15.0));
+		zRotation += -15.0;
 	}
 	else if ('?' == c) {
 		scene.positionList[currentPosition].model.visible = false;
@@ -204,7 +213,22 @@ function keyPressed(event) {
 		if (currentPosition < 0) currentPosition = scene.positionList.length - 2;
 		scene.positionList[currentPosition].model.visible = true;
 	}
-
+	else if ('=' == c) {
+		 scale = 1.0;
+         xTranslation = 0.0;
+         yTranslation = 0.0;
+         zTranslation = 0.0;
+         xRotation = 0.0;
+         yRotation = 0.0;
+         zRotation = 0.0;
+	}
+	
+	var model_p = scene.positionList[currentPosition];
+	model_p.matrix = Matrix.translate(0, 0, -near).mult(
+					Matrix.translate(xTranslation, yTranslation, zTranslation)).mult(
+					Matrix.rotateX(xRotation).mult(Matrix.rotateY(yRotation)).mult(Matrix.rotateZ(zRotation)).mult(Matrix.scaleConst(scale))
+					);
+						
 	// add image data
 	display();
 }
