@@ -1,0 +1,107 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CS 45500 - Homework 4</title>
+  <meta name="description" content="CS 45500 Homework 4">
+  <meta name="author" content="Roger L. Kraft">
+  <link rel="stylesheet" href="http://math.pnw.edu/~rlkraft/roger-v2.css">
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+<!--
+<header>
+  <a href="http://math.pnw.edu/~rlkraft/" title="Roger L. Kraft">Roger L. Kraft</a>
+</header>
+ -->
+<nav>
+  <ul class="nav-list" role="navigation">
+    <li><a href="../cs45500.html">CS 45500</a></li>
+    <li><a href="../syllabus.html">Syllabus</a></li>
+    <li><a href="../class.html">Lectures and Readings</a></li>
+    <li><a href="../homework.html">Homework Assignments</a></li>
+  </ul>
+  <ul class="nav-list" role="navigation">
+    <li><a href="http://math.pnw.edu/~rlkraft/roger.html">Roger Kraft</a></li>
+    <li><a href="https://pnw.edu/computer-science/">Computer Science Department</a></li>
+    <li><a href="https://pnw.edu/engineering/">School of Engineering</a></li>
+    <li><a href="https://pnw.edu/college-of-engineering-sciences/">College of Engineering & Sciences</a></li>
+    <li><a href="https://pnw.edu/">Purdue University Northwest</a></li>
+  </ul>
+</nav>
+
+<section id="Content">
+<h1>
+Programming Assignment 4<br>
+CS 45500<br>
+Computer Graphics<br>
+Fall, 2021
+</h1>
+
+<p>
+This assignment makes use of the files contained in this <a href="hw4.zip">zip file</a>.
+This assignment is due Tuesday, November 23.
+</p>
+
+<p>
+This assignment is based on <a href="http://cs.pnw.edu/~rlkraft/cs45500/for-class/renderer_6.zip">renderer_6.zip</a> and specifically on the sub-folder "<code>aspect ratio examples</code>" (which is also copied into the <a href="hw4.zip">zip file</a>).
+</p>
+
+<p>
+In the <code>demos</code> sub-folder of the zip file there are two executable jar files, <code>Hw4_Part_1_Demo.jar</code> and <code>Hw4_Part_2_Demo.jar</code>, that you can run. Also in the zip file are two program files <code>Hw4_Part_1.java</code> and <code>Hw4_Part_2.java</code>. that you need to complete so that they run the same way as the two demo programs.
+</p>
+
+<p>
+The two demo programs demonstrate two ways that a graphics program can react to a user changing the shape of the program's window. Each demo program, like the programs in the "<code>aspect ratio examples</code>" folder, is displaying a rotating wheel. The rotating wheel image has an aspect ratio of 1 and it starts out with dimensions 512 pixels by 512 pixels. When the user changes the dimension of the program's window (which is the same thing as changing the dimensions of the program's framebuffer) the issue is how the program should display the 512-by-512 wheel image in the new window. The new window might be larger or smaller than the original 512 pixels by 512 pixels. Should the wheel be magnified, or maybe letterboxed, into a larger window? Should the original image be scaled down, or maybe cropped, into a smaller window? If you crop the original image, which part of it is cropped off? If the image is letterboxed, where in the framebuffer is the letterboxing viewport placed (that is, where should the "empty" spaces go)?
+</p>
+
+<p>
+To see some important answers to the last few questions, look at the source code to the examples <code>Circle_v2_Letterbox.java</code> and <code>Circle_v3_Crop.java</code> from the "<code>aspect ratio examples</code>" folder. In particular, notice that when we crop a source image, the part that we keep can be placed at nine different locations within the source image (think of a tic-tack-toe grid placed of the source image). Similarly, if we letterbox the viewport within the framebuffer, there are nine locations in the framebuffer where we can place the viewport (think of the same tic-tac-toe grid but placed this time on the framebuffer). If we are both cropping and letterboxing, then we could even choose different grid locations for the cropping of the source image and the letterboxing of the viewport, (though all of the given example programs use the same grid location for both cropping the source image and letterboxing the viewport).
+</p>
+
+<p>
+The first demo program chooses to both magnify and crop the source image into the (whole) framebuffer. The program scales (either larger or smaller) the source image onto the larger dimension of the framebuffer, and the program crops the source image in the direction of the shorter edge of the framebuffer. This has the effect of using all of the framebuffer (no letterboxing) and preserving the aspect ratio of the source image (no distortion).
+</p>
+
+<p>
+The second demo program crops the source image when the framebuffer is too small and the program letterboxes the viewport when the framebuffer is too large. The cropping or letterboxing is done in each of the two dimensions (horizontal and vertical) independently of each other. The cropping and the letterboxing use the same "grid location" (you can get a nice effect by having the letterboxing and the cropping use the "opposite" grid location from each other; try programming that).
+</p>
+
+<p>
+In general, cropping of the source image is implemented using the <code>projOrtho(double left, double right, double bottom, double top)</code> method in the renderer's <code>Camera</code> class.
+</p>
+
+<p>
+Letterboxing of a viewport is implemented using the <code>setViewport(int x, int y, int wVP, int hVP)</code> method of the renderer's <ode>FrameBuffer</code> class.
+</p>
+
+<p>
+There are two illustrations in the <a href="hw4.zip">zip file</a> that try to visualize the relationship between cropping, letterboxing, and the parameters to the <code>projOrtho()</code> and <code>setViewport()</code> methods.
+</p>
+
+<p>
+<a href="http://cs.pnw.edu/~rlkraft/cs45500/handin.html">Turn in</a> a zip file called <code>CS455Hw4Surname.zip</code> (where <code>Surname</code> is your last name) containing your versions of <code>Hw4_Part_1.java</code> and <code>Hw4_Part_2.java</code>.
+</p>
+
+<p>
+This assignment is due Tuesday, November 23.
+</p>
+
+</section>
+
+<footer>
+  <script language="JavaScript" type="text/javascript">
+    document.write("<font size=\"-2\"><i>Last modified on " + document.lastModified + ".<\/i><\/font>");
+  </script>
+  <br>
+  <a href="mailto:rlkraft@pnw.edu"><font size="-2"><i>compliments and criticisms</i></font></a>
+</footer>
+
+</body>
+</html>
