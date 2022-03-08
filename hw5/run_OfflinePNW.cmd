@@ -1,2 +1,0 @@
-node OfflinePNW.js
-pause
