@@ -1,6 +1,6 @@
-import { Model } from '../scene/Model.js';
-import { LineSegment } from '../scene/LineSegment.js';
-import { Vertex } from '../scene/Vertex.js';
+import { Model } from '../../scene/Model.js';
+import { LineSegment } from '../../scene/LineSegment.js';
+import { Vertex } from '../../scene/Vertex.js';
 
 /*
 
