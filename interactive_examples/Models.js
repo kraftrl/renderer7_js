@@ -26,11 +26,6 @@ export class Models extends Abstract {
 
         // Reset the camera
         this.scene.camera.projPerspectiveReset();
-        
-        // Pull the positions away from where the camera is
-        this.scene.getPosition(0).matrix = Matrix.translate(0, 0, this.pushback);
-        this.scene.getPosition(1).matrix = Matrix.translate(0, 0, this.pushback);
-        this.scene.getPosition(2).matrix = Matrix.translate(0, 0, this.pushback);
 
         // Create several Model objects.
         this.modelArray.push(new ObjSimpleModel("../assets/apple.obj"));
@@ -42,8 +37,8 @@ export class Models extends Abstract {
         this.modelArray.push(new CylinderSector(0.5, 1, 5, 5) );
         this.modelArray.push(new Torus(0.75, 0.25, 25, 25) );
         this.modelArray.push(new Cube2(15, 15, 15) );
-        var floor = new PanelXZ(-7, 7, 3, -1); // floor
-        var wall = new PanelXY(-7, 7, -1, 3); // wall
+        var wall = new PanelXY(-4, 4, -1, 3); // wall
+        var floor = new PanelXZ(-4, 4, -2, 0); // floor
         
 
         // Give each model a random color.
@@ -52,16 +47,16 @@ export class Models extends Abstract {
         }
         ModelShading.setRandomColor(wall);
         ModelShading.setRandomColor(floor);
-        // ModelShading.setRandomColor(airplane);
 
         // Add four models to the Scene.
-        this.scene.getPosition(0).setModel( this.modelArray[1] );
+        this.scene.getPosition(0).setModel( this.modelArray[0] );
         this.scene.getPosition(1).setModel( wall );
         this.scene.getPosition(2).setModel( floor );
 
         // Position the wall, floor.
-        this.scene.getPosition(1).matrix.mult( Matrix.translate(0,  0, -3) );// wall
-        this.scene.getPosition(2).matrix.mult( Matrix.translate(0, -1,  3) );// floor
+        this.scene.getPosition(0).matrix.mult(Matrix.translate(0, 0, this.pushback));
+        this.scene.getPosition(1).matrix.mult(Matrix.translate(0, 0, -4));
+        this.scene.getPosition(2).matrix.mult(Matrix.translate(0,-1, this.pushback));
 
         this.setupViewing();
     }

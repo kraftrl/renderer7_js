@@ -5,6 +5,15 @@ import { Models } from "./Models.js";
 import { Triangle } from "./Triangle.js";
 
 var client = new Cube();
+const resizer = new ResizeObserver(function () {
+    const w = client.resizer.offsetWidth;
+    const h = client.resizer.offsetHeight;
+    client.ctx.canvas.width = w;
+    client.ctx.canvas.height = h;
+    client.fb = new FrameBuffer(undefined, w, h);
+    client.setupViewing();
+});
+
 setListeners();
 
 const buttons = document.getElementsByClassName('client');
@@ -19,6 +28,8 @@ function goToClient(element) {
     element.style.display = "none";
     document.getElementById("title").innerText = "Interactive " + element.innerText;
 
+    // make sure to remove listeners before setting new ones
+    removeListeners();
     if (element.innerText == "Cube") {
         client = new Cube();
     } else if (element.innerText == "Triangle") {
@@ -32,19 +43,15 @@ function goToClient(element) {
 }
 
 function setListeners() {
-    console.log(client);
-    //client.setTransformations();
-    document.addEventListener("keypress", function(e) {
-        client.keyPressed(e);
-    });
-    const resizer = new ResizeObserver(function () {   
-        const resizer = document.getElementById("resizer");
-        const w = resizer.offsetWidth;
-        const h = resizer.offsetHeight;
-        client.ctx.canvas.width = w;
-        client.ctx.canvas.height = h;
-        client.fb = new FrameBuffer(undefined, w, h);
-        client.setupViewing();
-    });
-    resizer.observe(document.getElementById("resizer"));
+    resizer.observe(client.resizer);
+    document.addEventListener("keypress", keyListener);
+}
+
+function removeListeners() {
+    resizer.unobserve(client.resizer);
+    document.removeEventListener("keypress", keyListener);
+}
+
+function keyListener(event) {
+    client.keyPressed(event);
 }

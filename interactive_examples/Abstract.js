@@ -7,7 +7,7 @@ import { FrameBuffer } from '../framebuffer/FrameBuffer.js';
 export class Abstract {
 
     constructor() {
-        const resizer = document.getElementById("resizer");
+        this.resizer = document.getElementById("resizer");
         const w = resizer.offsetWidth;
         const h = resizer.offsetHeight;
         this.ctx = document.getElementById("pixels").getContext("2d");
@@ -27,7 +27,7 @@ export class Abstract {
         this.showFBaspectRatio = false;
 
         this.showMatrix = false;
-        this.pushback = 2;
+        this.pushback = -2;
         
         // I am unable to get the method chaining to work. Keep on getting NaNs that I can't trace.        
         /*
@@ -288,9 +288,7 @@ export class Abstract {
         this.fb.vp.clearVP();
         Pipeline.render(this.scene, this.fb.vp);
     
-        const imageData = this.ctx.getImageData(0, 0, this.fb.width, this.fb.height);
-        imageData.data.set(this.fb.pixel_buffer);
-        this.ctx.putImageData(imageData, this.fb.vp.vp_ul_x, this.fb.vp.vp_ul_y);
+        this.ctx.putImageData(new ImageData(this.fb.pixel_buffer,this.fb.width,this.fb.height), this.fb.vp.vp_ul_x, this.fb.vp.vp_ul_y);
     }
 
     print_help_message()

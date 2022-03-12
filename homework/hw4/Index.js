@@ -4,6 +4,15 @@ import { Hw4_Part_3 } from "./Hw4_Part_3.js";
 import { FrameBuffer } from "../../framebuffer/FrameBuffer.js";
 
 var client = new Hw4_Part_1();
+const resizer = new ResizeObserver(function () {
+    const w = client.resizer.offsetWidth;
+    const h = client.resizer.offsetHeight;
+    client.ctx.canvas.width = w;
+    client.ctx.canvas.height = h;
+    client.fb = new FrameBuffer(undefined, w, h);
+    client.setupViewing();
+});
+
 setListeners();
 
 const slidecontainers = document.getElementsByClassName("slidecontainer");
@@ -23,7 +32,8 @@ function goToClient(element) {
     document.getElementById("title").innerText = element.title;
     client.resizer.style.overflow = "hidden";
 
-    clearInterval(client.timer);
+    // make sure to remove listeners before setting new ones
+    removeListeners();
     if (element.innerText == "Hw4_Part_1") {
         client = new Hw4_Part_1();
     } else if (element.innerText == "Hw4_Part_2") {
@@ -35,18 +45,24 @@ function goToClient(element) {
 }
 
 function setListeners() {
-    console.log(client);
-    //client.setTransformations();
-    document.addEventListener("keypress", function(e) {
-        client.keyPressed(e);
-    });
-    const resizer = new ResizeObserver(function () {
-        const w = client.resizer.offsetWidth;
-        const h = client.resizer.offsetHeight;
-        client.ctx.canvas.width = w;
-        client.ctx.canvas.height = h;
-        client.fb = new FrameBuffer(undefined, w, h);
-        client.setupViewing();
-    });
+    initTimer();
     resizer.observe(client.resizer);
+    document.addEventListener("keypress", keyListener);
+}
+
+function removeListeners() {
+    resizer.unobserve(client.resizer);
+    clearInterval(client.timer);
+    document.removeEventListener("keypress", keyListener);
+}
+
+function keyListener(event) {
+    client.keyPressed(event);
+}
+
+function initTimer() {
+    client.timer = setInterval(function() {
+        client.rotateModel(client.modelToRotate, 10); // 10 degrees
+        client.setupViewing();
+    }, 1000/client.fps);
 }

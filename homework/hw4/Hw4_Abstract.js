@@ -30,7 +30,7 @@ export class Hw4_Abstract {
         this.right  =  1;
         this.bottom = -1;
         this.top    =  1;
-        this.pushback = 2;
+        this.pushback = -2;
         this.mode = 1;
         this.scene = new Scene();
         this.scene.camera.projOrtho(this.left, this.right, this.bottom, this.top);
@@ -43,10 +43,7 @@ export class Hw4_Abstract {
         position.matrix = Matrix.translate(0, 0, 2);
         this.fps = 30;
         const thisClass = this;
-        this.timer = setInterval(function() {
-            thisClass.rotateModel(thisClass.modelToRotate, 10); // 10 degrees
-            thisClass.setupViewing();
-        }, 1000/this.fps);
+        this.timer = undefined;
         this.print_help_message();
     }
 
@@ -83,9 +80,7 @@ export class Hw4_Abstract {
         this.fb.vp.clearVP();
         Pipeline.render(this.scene, this.fb.vp);
     
-        const imageData = this.ctx.getImageData(0, 0, this.fb.width, this.fb.height);
-        imageData.data.set(this.fb.pixel_buffer);
-        this.ctx.putImageData(imageData, 0, 0);
+        this.ctx.putImageData(new ImageData(this.fb.pixel_buffer,this.fb.width,this.fb.height), 0, 0);
     }
 
     keyPressed(e) {

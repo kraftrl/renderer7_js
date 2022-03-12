@@ -247,11 +247,7 @@ function display(){
 	const fb = new FrameBuffer(undefined, w, h);
 	Pipeline.render(scene, fb.vp);
 
-	// maybe just store this imageData in Framebuffer
-	const imageData = ctx.getImageData(0, 0, w, h);
-	// console.log(fb);
-	imageData.data.set(fb.pixel_buffer);
-	ctx.putImageData(imageData, fb.vp.vp_ul_x, fb.vp.vp_ul_y);
+	ctx.putImageData(new ImageData(fb.pixel_buffer,fb.width, fb.height), fb.vp.vp_ul_x, fb.vp.vp_ul_y);
 }
 
 function print_help_message()

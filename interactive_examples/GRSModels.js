@@ -21,10 +21,9 @@ export class GRSModels extends Abstract {
         // Add the Position object to the scene.
         this.scene.addPosition([position]);
 
-        this.scene.camera.projPerspectiveReset();
+        this.scene.camera.projOrthoReset();
 
         // Push the position away from where the camera is.
-        this.pushback = -2;
         position.matrix = Matrix.translate(0, 0, this.pushback);
 
         // Instantiate all the grs models.
@@ -58,10 +57,6 @@ export class GRSModels extends Abstract {
 
         // Add a model to the first position.
         position.setModel(this.modelArray[this.currentModel]);
-
-        // Switch to a parallel (orthographic) projection.
-        this.scene.camera.perspective = false;
-        //this.scene.camera.projOrtho();
         
         this.setupViewing();
     }

@@ -6,6 +6,15 @@ import { PanAndScan } from "./PanAndScan.js";
 import { FrameBuffer } from "../framebuffer/FrameBuffer.js";
 
 var client = new Distort();
+const resizer = new ResizeObserver(function () {
+    const w = client.resizer.offsetWidth;
+    const h = client.resizer.offsetHeight;
+    client.ctx.canvas.width = w;
+    client.ctx.canvas.height = h;
+    client.fb = new FrameBuffer(undefined, w, h);
+    client.setupViewing();
+});
+
 setListeners();
 
 const slidecontainers = document.getElementsByClassName("slidecontainer");
@@ -25,7 +34,8 @@ function goToClient(element) {
     document.getElementById("title").innerText = element.title;
     client.resizer.style.overflow = "hidden";
 
-    clearInterval(client.timer);
+    // make sure to remove listeners before setting new ones
+    removeListeners();
     if (element.innerText == "Distort") {
         client = new Distort();
     } else if (element.innerText == "Letterbox") {
@@ -44,18 +54,24 @@ function goToClient(element) {
 }
 
 function setListeners() {
-    console.log(client);
-    //client.setTransformations();
-    document.addEventListener("keypress", function(e) {
-        client.keyPressed(e);
-    });
-    const resizer = new ResizeObserver(function () {
-        const w = client.resizer.offsetWidth;
-        const h = client.resizer.offsetHeight;
-        client.ctx.canvas.width = w;
-        client.ctx.canvas.height = h;
-        client.fb = new FrameBuffer(undefined, w, h);
-        client.setupViewing();
-    });
+    initTimer();
     resizer.observe(client.resizer);
+    document.addEventListener("keypress", keyListener);
+}
+
+function removeListeners() {
+    resizer.unobserve(client.resizer);
+    clearInterval(client.timer);
+    document.removeEventListener("keypress", keyListener);
+}
+
+function keyListener(event) {
+    client.keyPressed(event);
+}
+
+function initTimer() {
+    client.timer = setInterval(function() {
+        client.rotateModel(client.modelToRotate, 10); // 10 degrees
+        client.setupViewing();
+    }, 1000/client.fps);
 }
