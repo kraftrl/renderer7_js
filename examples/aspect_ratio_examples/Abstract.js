@@ -101,10 +101,10 @@ export class Abstract {
             Rasterize.debug = ! Rasterize.debug;
         } else if ('a' == c) {
             Rasterize.doAntialiasing = ! Rasterize.doAntialiasing;
-            console.log("Anti-aliasing is turned " + Rasterize.doAntialiasing ? "On" : "Off");
+            console.log("Anti-aliasing is turned " + (Rasterize.doAntialiasing ? "On" : "Off"));
         } else if ('g' == c) {
             Rasterize.doGamma = ! Rasterize.doGamma;
-            console.log("Gamma correction is turned " + Rasterize.doGamma ? "On" : "Off");
+            console.log("Gamma correction is turned " + (Rasterize.doGamma ? "On" : "Off"));
         } else if ('f' == c) {
             this.showFBaspectRatio = !this.showFBaspectRatio;
             if (this.showFBaspectRatio) {

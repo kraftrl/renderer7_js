@@ -174,6 +174,14 @@ export class InteractiveModelsAll {
         else if ('d' == c) {
             Pipeline.debug = !Pipeline.debug;
         }
+        else if ('a' == c) {
+            Rasterize.doAntialiasing = ! Rasterize.doAntialiasing;
+            console.log("Anti-aliasing is turned " + (Rasterize.doAntialiasing ? "On" : "Off"));
+        }
+        else if ('g' == c) {
+            Rasterize.doGamma = ! Rasterize.doGamma;
+            console.log("Gamma correction is turned " + (Rasterize.doGamma ? "On" : "Off"));
+        }
         else if ('i' == c){
            const verts = this.scene.getPosition(this.currentPosition).model.vertexList.length;
            const lines = this.scene.getPosition(this.currentPosition).model.lineSegmentList.length;
