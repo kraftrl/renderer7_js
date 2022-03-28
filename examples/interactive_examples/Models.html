@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset=utf-8>
+		<title id="title">Interactive Models</title>
+		<link rel="shortcut icon" href="#" />
+		<style>
+			body { 
+				margin: 0; 
+				overflow: auto;
+			}
+			#resizer {
+				float: left;
+				overflow: hidden;
+				resize: both;
+				width: 600px;
+				height: 600px;
+			}
+			button {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div style="width: 100%;">
+			<div style="text-align: center; font-size: x-large;">Interactive Models</div>
+		</div>
+		<div id="resizer">
+			<canvas id="pixels" width=600 height=600></canvas>
+		</div>
+		<div style="float: left; margin-left: 3px;">
+			<button onclick="location.href = 'Cube.html';">Cube</button>
+			<button onclick="location.href = 'Triangle.html';">Triangle</button>
+			<button onclick="location.href = 'GRSModels.html';">GRS Models</button>
+		</div>
+		<div style="margin: 2px; position: absolute; top: 0; right: 0;">
+			<button style="font-size: medium;" onclick="location = location.origin + '/examples';">Home</button>
+		</div>
+
+		<script src="Models.js" type="module"></script>
+	</body>
+</html>

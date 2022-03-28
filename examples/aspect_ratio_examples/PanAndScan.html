@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset=utf-8>
+		<title id="title">Pan and Scan</title>
+		<link rel="shortcut icon" href="#" />
+		<style>
+			body { 
+				margin: 0; 
+				overflow: auto;
+			}
+			#resizer {
+				float: left;
+				overflow: hidden;
+				resize: both;
+				width: 300px;
+				height: 300px;
+			}
+			button {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div style="width: 100%;">
+			<div style="text-align: center; font-size: x-large;">Aspect Ratio Examples: Pan and Scan</div>
+		</div>
+		<div id="resizer">
+			<canvas id="pixels" width=300 height=300></canvas>
+		</div>
+		<div style="float: left; margin-left: 3px;">
+			<button title="Crop" onclick="location.href = 'Crop.html';">Crop</button>
+			<button title="Distort" onclick="location.href = 'Distort.html';">Distort</button>
+			<button title="Letterbox" onclick="location.href = 'Letterbox.html';">Letterbox</button>
+			<button title="Window to the World" onclick="location.href = 'WindowToTheWorld.html';">WttW</button>
+			<div class="slidecontainer" style="margin-top: 50px;">
+				<label>Horizontal Slider</label>
+				<input type="range" min="1" max="100" value="50" class="slider" id="sliderH" />
+			</div>
+			<div class="slidecontainer" style="margin-top: 10px;">
+				<label>Vertical Slider</label>
+				<input type="range" min="1" max="100" value="50" class="slider" id="sliderV" />
+			</div>
+		</div>
+		<div style="margin: 2px; position: absolute; top: 0; right: 0;">
+			<button style="font-size: medium;" onclick="location = location.origin + '/examples';">Home</button>
+		</div>
+
+		<script src="PanAndScan.js" type="module"></script>
+	</body>
+</html>

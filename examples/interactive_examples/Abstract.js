@@ -1,9 +1,18 @@
-import { ModelShading } from '../scene/ModelShading.js';
-import { Matrix } from '../scene/Matrix.js';
-import { Pipeline } from '../pipeline/Pipeline.js';
-import { Rasterize } from '../pipeline/Rasterize.js';
-import { FrameBuffer } from '../framebuffer/FrameBuffer.js';
-import { Clip } from '../pipeline/Clip.js';
+import { ModelShading } from '../../scene/ModelShading.js';
+import { Matrix } from '../../scene/Matrix.js';
+import { Pipeline } from '../../pipeline/Pipeline.js';
+import { Rasterize } from '../../pipeline/Rasterize.js';
+import { FrameBuffer } from '../../framebuffer/FrameBuffer.js';
+import { Clip } from '../../pipeline/Clip.js';
+
+// Used for transformations.
+var xTranslation = 0.0;
+var yTranslation = 0.0;
+var zTranslation = 0.0;
+var xRotation = 0.0;
+var yRotation = 0.0;
+var zRotation = 0.0;
+var scale = 1.0;
 
 export class Abstract {
 
@@ -18,7 +27,7 @@ export class Abstract {
 
         this.letterbox = false;
         this.aspectRatio = 1;
-        this.near   =  1;
+        this.near   =  -1;
         this.left   = -1;
         this.right  =  1;
         this.bottom = -1;
@@ -29,17 +38,6 @@ export class Abstract {
 
         this.showMatrix = false;
         this.pushback = -2;
-        
-        // I am unable to get the method chaining to work. Keep on getting NaNs that I can't trace.        
-        /*
-        this.xTranslation = [0.0];
-        this.yTranslation = [0.0];
-        this.zTranslation = [0.0];
-        this.xRotation = [0.0];
-        this.yRotation = [0.0];
-        this.zRotation = [0.0];
-        this.scale = [1.0];
-        */
 
         this.scene = null;
         this.modelArray = [];
@@ -51,98 +49,76 @@ export class Abstract {
     // A client program can override how transformations are preformed.
     setTransformations(c) {
         if ('=' == c) {
-            /*
-            this.scale[0] = 1.0;
-            this.xTranslation[0] = 0.0;
-            this.yTranslation[0] = 0.0;
-            this.zTranslation[0] = 0.0;
-            this.xRotation[0] = 0.0;
-            this.yRotation[0] = 0.0;
-            this.zRotation[0] = 0.0;
-            */
+            scale = 1.0;
+            xTranslation = 0.0;
+            yTranslation = 0.0;
+            zTranslation = 0.0;
+            xRotation = 0.0;
+            yRotation = 0.0;
+            zRotation = 0.0;
         }
         else if ('s' == c) { // Scale the model 10% smaller.
-            //this.scale[0] /= 1.1;
-            this.scene.getPosition(0).matrix.mult(Matrix.scaleConst(1 / 1.1));
+            scale /= 1.1;
         }
         else if ('S' == c) { // Scale the model 10% larger.
-            //this.scale[0] *= 1.1
-            this.scene.getPosition(0).matrix.mult(Matrix.scaleConst(1.1));
+            scale *= 1.1;
         }
         else if ('x' == c) {
-            //this.xTranslation[0] -= 0.1;
-            this.scene.getPosition(0).matrix.mult(Matrix.translate(-0.1, 0, 0));
+            xTranslation -= 0.1;
         }
         else if ('X' == c) {
-            //this.xTranslation[0] += 0.1;
-            this.scene.getPosition(0).matrix.mult(Matrix.translate(0.1, 0, 0));
+            xTranslation += 0.1;
         }
         else if ('y' == c) {
-            //this.yTranslation[0] -= 0.1;
-            this.scene.getPosition(0).matrix.mult(Matrix.translate(0, -0.1, 0));
+            yTranslation -= 0.1;
         }
         else if ('Y' == c) {
-            //this.yTranslation[0] += 0.1;
-            this.scene.getPosition(0).matrix.mult(Matrix.translate(0, 0.1, 0));
+            yTranslation += 0.1;
         }
         else if ('z' == c) {
-            //this.zTranslation[0] -= 0.1;
-            this.scene.getPosition(0).matrix.mult(Matrix.translate(0, 0, -0.1));
+            zTranslation -= 0.1;
         }
         else if ('Z' == c) {
-            //this.zTranslation[0] += 0.1;
-            this.scene.getPosition(0).matrix.mult(Matrix.translate(0, 0, 0.1));
+            zTranslation += 0.1;
         }
         else if ('u' == c) {
-            //this.xRotation[0] -= 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateX(-2));
+            xRotation -= 2.0;
         }
         else if ('U' == c) {
-            //this.xRotation[0] += 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateX(2));
+            xRotation += 2.0;
         }
         else if ('v' == c) {
-            //this.yRotation[0] -= 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateY(-2));
+            yRotation -= 2.0;
         }
         else if ('V' == c) {
-            //this.yRotation[0] += 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateY(2));
+            yRotation += 2.0;
         }
         else if ('w' == c) {
-            //this.zRotation[0] -= 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateZ(-2));
+            zRotation -= 2.0;
         }
         else if ('W' == c) {
-            //this.zRotation[0] += 2.0;
-            this.scene.getPosition(0).matrix.mult(Matrix.rotateZ(2));
+            zRotation += 2.0;
         }
 
-
-        // I am unable to get the method chaining to work. Keep on getting NaNs that I can't trace.
-        /*
-        // Set the model-to-view transformation matrix.
-        // The order of the transformations is very important!
-        var model_p = this.scene.getPosition(0);
-        // Push the model away from where the camera is
-        // and move the model relative to its new position.
-
-        
-        model_p.matrix = Matrix.translate(0, 0, this.pushback)
-                        .mult( Matrix.translate(this.xTranslation[0],
-                                                this.yTranslation[0],
-                                                this.zTranslation[0]) )
-                        .mult( Matrix.rotateX(this.xRotation[0]) )
-                        .mult( Matrix.rotateY(this.yRotation[0]) )
-                        .mult( Matrix.rotateZ(this.zRotation[0]) )
-                        .mult( Matrix.scale(this.scale[0]) );
-        */
+        var model_p = this.scene.positionList[this.currentModel];
+        model_p.matrix = Matrix.translate(0, 0, this.pushback).mult(
+                        Matrix.translate(xTranslation, yTranslation, zTranslation)).mult(
+                        Matrix.rotateX(xRotation).mult(Matrix.rotateY(yRotation)).mult(Matrix.rotateZ(zRotation)).mult(Matrix.scaleConst(scale))
+                        );
     }
 
     keyPressed(e) {
         const c = e.key;
         if ('h' == c) {
             this.print_help_message();            
+        }
+        else if ('a' == c) {
+            Rasterize.doAntialiasing = ! Rasterize.doAntialiasing;
+            console.log("Anti-aliasing is turned " + (Rasterize.doAntialiasing ? "On" : "Off"));
+        }
+        else if ('g' == c) {
+            Rasterize.doGamma = ! Rasterize.doGamma;
+            console.log("Gamma correction is turned " + (Rasterize.doGamma ? "On" : "Off"));
         }
         else if ('d' == c) {
             this.modelArray[this.currentModel].debug = !this.modelArray[this.currentModel].debug;

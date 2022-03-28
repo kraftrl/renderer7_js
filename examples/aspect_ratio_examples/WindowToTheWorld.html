@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset=utf-8>
+		<title id="title">Window to the World</title>
+		<link rel="shortcut icon" href="#" />
+		<style>
+			body { 
+				margin: 0; 
+				overflow: auto;
+			}
+			#resizer {
+				float: left;
+				overflow: hidden;
+				resize: both;
+				width: 600px;
+				height: 600px;
+			}
+			button {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div style="width: 100%;">
+			<div style="text-align: center; font-size: x-large;">Aspect Ratio Examples: Window to the World</div>
+		</div>
+		<div id="resizer">
+			<canvas id="pixels" width=600 height=600></canvas>
+		</div>
+		<div style="float: left; margin-left: 3px;">
+			<button title="Crop" onclick="location.href = 'Crop.html';">Crop</button>
+			<button title="Distort" onclick="location.href = 'Distort.html';">Distort</button>
+			<button title="Letterbox" onclick="location.href = 'Letterbox.html';">Letterbox</button>
+			<button title="Pan and Scan" onclick="location.href = 'PanAndScan.html';">Pan and Scan</button>
+		</div>
+		<div style="margin: 2px; position: absolute; top: 0; right: 0;">
+			<button style="font-size: medium;" onclick="location = location.origin + '/examples';">Home</button>
+		</div>
+
+		<script src="WindowToTheWorld.js" type="module"></script>
+	</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset=utf-8>
+		<title>JavaScript Renderer 1</title>
+		<link rel="shortcut icon" href="#" />
+		<style>
+			body { 
+				margin: 0; 
+				overflow: auto;
+			}
+			#resizer {
+				float: left;
+				overflow: hidden;
+				resize: both;
+				width: 600px;
+				height: 600px;
+			}
+			button {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="resizer">
+			<canvas id="pixels" width=600 height=600></canvas>
+		</div>
+		<div style="margin: 2px; position: absolute; top: 0; right: 0;">
+			<button style="font-size: medium;" onclick="location = location.origin;">Home</button>
+		</div>
+
+		<script src="main.js" type="module"></script>
+	</body>
+</html>

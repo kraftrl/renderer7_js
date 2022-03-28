@@ -1,10 +1,10 @@
-import { Scene } from '../scene/Scene.js';
-import { ModelShading } from '../scene/ModelShading.js';
-import { Matrix } from '../scene/Matrix.js';
-import { Position } from '../scene/Position.js';
-import { GRSModel } from '../models/GRSModel.js';
-import { Axes2D } from '../models/Axes2D.js';
-import { Color } from '../color/Color.js';
+import { Scene } from '../../scene/Scene.js';
+import { ModelShading } from '../../scene/ModelShading.js';
+import { Matrix } from '../../scene/Matrix.js';
+import { Position } from '../../scene/Position.js';
+import { GRSModel } from '../../models/GRSModel.js';
+import { Axes2D } from '../../models/Axes2D.js';
+import { Color } from '../../color/Color.js';
 import { Abstract } from './Abstract.js';
 
 export class GRSModels extends Abstract {
@@ -27,18 +27,18 @@ export class GRSModels extends Abstract {
         position.matrix = Matrix.translate(0, 0, this.pushback);
 
         // Instantiate all the grs models.
-        this.modelArray.push(new GRSModel("../assets/grs/bronto_v2.grs"));
-        this.modelArray.push(new GRSModel("../assets/grs/rex_v2.grs"));
-        this.modelArray.push(new GRSModel("../assets/grs/usa_v2.grs"));
-        this.modelArray.push(new GRSModel("../assets/grs/bronto.grs"));
-        this.modelArray.push(new GRSModel("../assets/grs/rex.grs"));
-        this.modelArray.push(new GRSModel("../assets/grs/usa.grs"));
-        this.modelArray.push(new GRSModel("../assets/grs/vinci.grs"));
-        this.modelArray.push(new GRSModel("../assets/grs/dragon.grs"));
-        this.modelArray.push(new GRSModel("../assets/grs/birdhead.grs"));
-        this.modelArray.push(new GRSModel("../assets/grs/knight.grs"));
-        this.modelArray.push(new GRSModel("../assets/grs/house.grs"));
-        this.modelArray.push(new GRSModel("../assets/grs/scene.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/bronto_v2.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/rex_v2.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/usa_v2.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/bronto.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/rex.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/usa.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/vinci.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/dragon.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/birdhead.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/knight.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/house.grs"));
+        this.modelArray.push(new GRSModel("../../assets/grs/scene.grs"));
 
         // Create a set of x and y axes.
         var axes = new Axes2D(-1, +1, -1, +1, 20, 20);

@@ -1,11 +1,11 @@
-import { Scene } from '../scene/Scene.js';
-import { ModelShading } from '../scene/ModelShading.js';
-import { Vertex } from '../scene/Vertex.js';
-import { Matrix } from '../scene/Matrix.js';
-import { LineSegment } from '../scene/LineSegment.js';
-import { Position } from '../scene/Position.js';
-import { Color } from '../color/Color.js';
-import * as CubeModel from '../models/Cube.js';
+import { Scene } from '../../scene/Scene.js';
+import { ModelShading } from '../../scene/ModelShading.js';
+import { Vertex } from '../../scene/Vertex.js';
+import { Matrix } from '../../scene/Matrix.js';
+import { LineSegment } from '../../scene/LineSegment.js';
+import { Position } from '../../scene/Position.js';
+import { Color } from '../../color/Color.js';
+import * as CubeModel from '../../models/Cube.js';
 import { Abstract } from './Abstract.js';
 
 export class Cube extends Abstract {

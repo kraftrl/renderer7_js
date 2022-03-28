@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset=utf-8>
+		<title>Renderer 7: Examples</title>
+		<link rel="shortcut icon" href="#" />
+		<style>
+			#section {
+				width: 100%; 
+				height: 300px;
+				padding: 175px 0;
+				display: flex;
+			}
+				#section div {
+					width: 100%;
+					height: 100%;
+					cursor: pointer;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					text-align: center;
+					font-size: xx-large;
+				}
+		</style>
+	</head>
+
+	<body>
+		<div style="width: 100%; text-align: center; font-size: x-large; font-weight: bolder;">Welcome to Renderer 7. Here are some examples.</div>
+		<div id="section">
+			<div style="background-color: aqua;" onclick="location.href = 'aspect_ratio_examples/distort.html';">Aspect Ratio Examples</div>
+			<div style="background-color: salmon;" onclick="location.href = 'interactive_examples/cube.html';">Interactive Examples</div>
+		</div>
+		<div style="margin: 2px; position: absolute; top: 0; right: 0;">
+			<button style="font-size: medium; cursor: pointer;" onclick="location = location.origin;">Home</button>
+		</div>
+	</body>
+</html>

@@ -1,14 +1,14 @@
-import { Scene } from '../scene/Scene.js';
-import { ModelShading } from '../scene/ModelShading.js';
-import { Matrix } from '../scene/Matrix.js';
-import { Position } from '../scene/Position.js';
-import { Torus } from '../models/Torus.js';
-import { CylinderSector } from '../models/CylinderSector.js';
-import { ObjSimpleModel } from '../models/ObjSimpleModel.js';
-import { Sphere } from '../models/Sphere.js';
-import { Cube2 } from '../models/Cube2.js';
-import { PanelXY } from '../models/PanelXY.js';
-import { PanelXZ } from '../models/PanelXZ.js';
+import { Scene } from '../../scene/Scene.js';
+import { ModelShading } from '../../scene/ModelShading.js';
+import { Matrix } from '../../scene/Matrix.js';
+import { Position } from '../../scene/Position.js';
+import { Torus } from '../../models/Torus.js';
+import { CylinderSector } from '../../models/CylinderSector.js';
+import { ObjSimpleModel } from '../../models/ObjSimpleModel.js';
+import { Sphere } from '../../models/Sphere.js';
+import { Cube2 } from '../../models/Cube2.js';
+import { PanelXY } from '../../models/PanelXY.js';
+import { PanelXZ } from '../../models/PanelXZ.js';
 import { Abstract } from './Abstract.js';
 
 export class Models extends Abstract {
@@ -28,11 +28,11 @@ export class Models extends Abstract {
         this.scene.camera.projPerspectiveReset();
 
         // Create several Model objects.
-        this.modelArray.push(new ObjSimpleModel("../assets/apple.obj"));
-        this.modelArray.push(new ObjSimpleModel("../assets/cow.obj"));
-        this.modelArray.push(new ObjSimpleModel("../assets/galleon.obj"));
-        this.modelArray.push(new ObjSimpleModel("../assets/teapot.obj"));
-        this.modelArray.push(new ObjSimpleModel("../assets/cessna.obj"));
+        this.modelArray.push(new ObjSimpleModel("../../assets/apple.obj"));
+        this.modelArray.push(new ObjSimpleModel("../../assets/cow.obj"));
+        this.modelArray.push(new ObjSimpleModel("../../assets/galleon.obj"));
+        this.modelArray.push(new ObjSimpleModel("../../assets/teapot.obj"));
+        this.modelArray.push(new ObjSimpleModel("../../assets/cessna.obj"));
         this.modelArray.push(new Sphere(1, 30, 30) );
         this.modelArray.push(new CylinderSector(0.5, 1, 5, 5) );
         this.modelArray.push(new Torus(0.75, 0.25, 25, 25) );

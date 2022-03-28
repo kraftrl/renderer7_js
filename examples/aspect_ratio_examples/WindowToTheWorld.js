@@ -1,9 +1,9 @@
-import { Disk } from "../models/Disk.js";
+import { Disk } from "../../models/Disk.js";
 import { Abstract } from "./Abstract.js";
-import { ModelShading } from "../scene/ModelShading.js";
-import { Position } from "../scene/Position.js";
-import { SquareGrid } from "../models/SquareGrid.js";
-import { Color } from "../color/Color.js";
+import { ModelShading } from "../../scene/ModelShading.js";
+import { Position } from "../../scene/Position.js";
+import { SquareGrid } from "../../models/SquareGrid.js";
+import { Color } from "../../color/Color.js";
 
 export class WindowToTheWorld extends Abstract {
 

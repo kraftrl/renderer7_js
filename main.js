@@ -14,6 +14,7 @@ import { CylinderSector } from './models/CylinderSector.js';
 import { Pipeline } from './pipeline/Pipeline.js';
 import { FrameBuffer } from './framebuffer/FrameBuffer.js';
 import { Color } from './color/Color.js';
+import { Rasterize } from './pipeline/Rasterize.js';
 
 // Used for transformations.
 var xTranslation = 0.0;
@@ -83,8 +84,13 @@ function keyPressed(event) {
 	if ('h' == c) {
 		print_help_message();
 	}
-	else if ('d' == c) {
-		ctx.imageSmoothingEnabled = !ctx.imageSmoothingEnabled;
+	else if ('a' == c) {
+		Rasterize.doAntialiasing = ! Rasterize.doAntialiasing;
+		console.log("Anti-aliasing is turned " + (Rasterize.doAntialiasing ? "On" : "Off"));
+	}
+	else if ('g' == c) {
+		Rasterize.doGamma = ! Rasterize.doGamma;
+		console.log("Gamma correction is turned " + (Rasterize.doGamma ? "On" : "Off"));
 	}
 	else if ('p' == c) {
 		scene.camera.perspective = ! scene.camera.perspective;

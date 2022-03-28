@@ -1,22 +1,22 @@
-import { Scene } from '../scene/Scene.js';
-import { ModelShading } from '../scene/ModelShading.js';
-import { Matrix } from '../scene/Matrix.js';
-import { Vertex } from '../scene/Vertex.js';
-import { Model } from '../scene/Model.js';
-import { Position } from '../scene/Position.js';
-import { LineSegment } from '../scene/LineSegment.js';
+import { Scene } from '../../scene/Scene.js';
+import { ModelShading } from '../../scene/ModelShading.js';
+import { Matrix } from '../../scene/Matrix.js';
+import { Vertex } from '../../scene/Vertex.js';
+import { Model } from '../../scene/Model.js';
+import { Position } from '../../scene/Position.js';
+import { LineSegment } from '../../scene/LineSegment.js';
 //import { OrthographicNormalizeMatrix } from './scene/OrthographicNormalizeMatrix.js';
 //import { PerspectiveNormalizeMatrix } from './scene/PerspectiveNormalizeMatrix.js';
 //import { ObjSimpleModel } from './models/ObjSimpleModel.js';
 //import { GRSModel } from './models/GRSModel.js';
 //import { Cube2 } from './models/Cube2.js';
 //import { Pyramid } from './models/Pyramid.js';
-import { Axes2D } from '../models/Axes2D.js';
+import { Axes2D } from '../../models/Axes2D.js';
 //import { Circle } from './models/Circle.js';
 //import { CylinderSector } from './models/CylinderSector.js';
-import { Pipeline } from '../pipeline/Pipeline.js';
-import { FrameBuffer } from '../framebuffer/FrameBuffer.js';
-import { Color } from '../color/Color.js';
+import { Pipeline } from '../../pipeline/Pipeline.js';
+import { FrameBuffer } from '../../framebuffer/FrameBuffer.js';
+import { Color } from '../../color/Color.js';
 //import { Square } from './models/Square.js';
 
 // Create the Scene object that we shall render.

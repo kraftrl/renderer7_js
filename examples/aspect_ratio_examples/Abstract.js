@@ -1,13 +1,13 @@
-import { FrameBuffer } from '../framebuffer/FrameBuffer.js';
-import { Disk } from '../models/Disk.js';
-import { Clip } from '../pipeline/Clip.js';
-import { Pipeline } from '../pipeline/Pipeline.js';
-import { Rasterize } from '../pipeline/Rasterize.js';
-import { Matrix } from '../scene/Matrix.js';
-import { ModelShading } from '../scene/ModelShading.js';
-import { Position } from '../scene/Position.js';
-import { Scene } from '../scene/Scene.js';
-import { Vertex } from '../scene/Vertex.js';
+import { FrameBuffer } from '../../framebuffer/FrameBuffer.js';
+import { Disk } from '../../models/Disk.js';
+import { Clip } from '../../pipeline/Clip.js';
+import { Pipeline } from '../../pipeline/Pipeline.js';
+import { Rasterize } from '../../pipeline/Rasterize.js';
+import { Matrix } from '../../scene/Matrix.js';
+import { ModelShading } from '../../scene/ModelShading.js';
+import { Position } from '../../scene/Position.js';
+import { Scene } from '../../scene/Scene.js';
+import { Vertex } from '../../scene/Vertex.js';
 
 export class Abstract {
 
