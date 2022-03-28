@@ -66,5 +66,5 @@ export class Cube extends Abstract {
 
         this.setupViewing();
     }
-
 }
+new Cube();

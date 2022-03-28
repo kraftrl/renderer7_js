@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset=utf-8>
-		<title id="title">Interactive Examples</title>
+		<title id="title">Interactive Models</title>
 		<link rel="shortcut icon" href="#" />
 		<style>
 			body { 
@@ -24,10 +24,9 @@
 			<canvas id="pixels" width=600 height=600></canvas>
 		</div>
 		<div style="float: left;">
-			<button class="client" title="InteractiveCube.html" hidden>Cube</button>
-			<button class="client" title="InteractiveTriangle.html">Triangle</button>
-			<button class="client" title="InteractiveModels.html">Models</button>
-			<button class="client" title="InteractiveGRSModels.html">GRS Models</button>
+			<button onclick="location.href = 'Cube.html';">Cube</button>
+			<button onclick="location.href = 'Triangle.html';">Triangle</button>
+			<button onclick="location.href = 'GRSModels.html';">GRS Models</button>
 		</div>
 		<div style="float: right;">
 			<button style="margin-right: 2px;" onclick="location = location.origin;">Home</button>
@@ -58,12 +57,6 @@
 		<script src="../models/Circle.js" type="module"></script>
 		<script src="../models/CylinderSector.js" type="module"></script>
 
-		<script src="Index.js" type="module"></script>
-
-        <script src="Abstract.js" type="module"></script>
-		<script src="Cube.js" type="module"></script>
-		<script src="Triangle.js" type="module"></script>
 		<script src="Models.js" type="module"></script>
-		<script src="GRSModels.js" type="module"></script>
 	</body>
 </html>

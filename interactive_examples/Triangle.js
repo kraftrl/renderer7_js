@@ -41,5 +41,5 @@ export class Triangle extends Abstract {
         
         this.setupViewing();
     }
-
 }
+new Triangle();

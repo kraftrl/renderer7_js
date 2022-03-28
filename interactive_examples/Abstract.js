@@ -3,6 +3,7 @@ import { Matrix } from '../scene/Matrix.js';
 import { Pipeline } from '../pipeline/Pipeline.js';
 import { Rasterize } from '../pipeline/Rasterize.js';
 import { FrameBuffer } from '../framebuffer/FrameBuffer.js';
+import { Clip } from '../pipeline/Clip.js';
 
 export class Abstract {
 
@@ -43,6 +44,7 @@ export class Abstract {
         this.scene = null;
         this.modelArray = [];
         this.currentModel = 0;
+        this.setUpListeners();
         this.print_help_message();
     }
 
@@ -220,7 +222,7 @@ export class Abstract {
             // Change each color in the current model to a random color.
             ModelShading.setRandomColors(this.scene.getPosition(0).model);
         }
-        else if ('e' == c && e.altKey()) {
+        else if ('&' == c) {
             // Change the random color of each vertex of the current model.
             ModelShading.setRandomVertexColors(this.scene.getPosition(0).model);
         }
@@ -289,6 +291,24 @@ export class Abstract {
         Pipeline.render(this.scene, this.fb.vp);
     
         this.ctx.putImageData(new ImageData(this.fb.pixel_buffer,this.fb.width,this.fb.height), this.fb.vp.vp_ul_x, this.fb.vp.vp_ul_y);
+    }
+
+    setUpListeners(){
+        const client = this;
+        // resize observer
+        const resizeObserver = new ResizeObserver(function () {
+            const w = client.resizer.offsetWidth;
+            const h = client.resizer.offsetHeight;
+            client.ctx.canvas.width = w;
+            client.ctx.canvas.height = h;
+            client.fb = new FrameBuffer(undefined, w, h);
+            client.setupViewing();
+        });
+        resizeObserver.observe(client.resizer);
+        // key listener
+        document.addEventListener("keypress", function(event) {
+            client.keyPressed(event);
+        });
     }
 
     print_help_message()

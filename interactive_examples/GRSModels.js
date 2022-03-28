@@ -61,3 +61,4 @@ export class GRSModels extends Abstract {
         this.setupViewing();
     }
 }
+new GRSModels();

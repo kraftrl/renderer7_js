@@ -121,3 +121,4 @@ export class Models extends Abstract {
         }
     }
 }
+new Models();
