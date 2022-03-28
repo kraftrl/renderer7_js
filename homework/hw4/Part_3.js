@@ -1,6 +1,6 @@
 import { Hw4_Abstract } from "./Hw4_Abstract.js";
 
-export class Hw4_Part_1 extends Hw4_Abstract {
+export class Part_3 extends Hw4_Abstract {
 
     constructor() {
         super();
@@ -15,13 +15,13 @@ export class Hw4_Part_1 extends Hw4_Abstract {
 
         // The viewport is the whole framebuffer.
         this.fb.setViewport(0, 0, wFB, hFB);
-        
+
         // Compute the size of the viewport. (SIZE is
         // the initial size for the framebuffer.)
         const wVP = wFB;
         const hVP = hFB;
         const proportion = (wFB < hFB) ? hFB : wFB;
-
+    
         if (this.mode == 1)
         {
             // 1. upper left-hand corner
@@ -51,14 +51,14 @@ export class Hw4_Part_1 extends Hw4_Abstract {
             // 4. center of the right edge
             this.scene.camera.projOrtho(1 - (2.0 * wVP) / proportion,  // left
                                         1,                             // right
-                                        -hVP / proportion,             // bottom
-                                        hVP / proportion);             // top
+                                        -hVP / proportion,              // bottom
+                                        hVP / proportion);              // top
         }
         else if (this.mode == 5)
         {
             // 5. lower right-hand corner
-            this.scene.camera.projOrtho(1 - (2.0 * wVP) / proportion,   // left
-                                        1,                              // right
+            this.scene.camera.projOrtho(1 - (2.0 * wVP) / proportion,  // left
+                                        1,                             // right
                                         -1,                             // bottom
                                         -1 + (2.0 * hVP) / proportion); // top
         }
@@ -98,3 +98,4 @@ export class Hw4_Part_1 extends Hw4_Abstract {
         super.setupViewing();
     }
 }
+new Part_3();

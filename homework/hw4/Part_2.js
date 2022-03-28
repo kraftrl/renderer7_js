@@ -1,6 +1,6 @@
 import { Hw4_Abstract } from "./Hw4_Abstract.js";
 
-export class Hw4_Part_2 extends Hw4_Abstract {
+export class Part_2 extends Hw4_Abstract {
 
     constructor() {
         super();
@@ -103,3 +103,4 @@ export class Hw4_Part_2 extends Hw4_Abstract {
         super.setupViewing();
     }
 }
+new Part_2();
