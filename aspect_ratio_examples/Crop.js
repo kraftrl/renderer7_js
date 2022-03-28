@@ -61,7 +61,7 @@ export class Crop extends Abstract {
                 this.left   = -wVP / this.SIZE;
                 this.right  =  wVP / this.SIZE;
                 this.bottom = -1;
-                this.top    = -1 + (2.0 * hVP) / SIZE;
+                this.top    = -1 + (2.0 * hVP) / this.SIZE;
                 break;
             case 7: // 7. lower left-hand corner
                 this.fb.setViewport(0, hFB - hVP, wVP, hVP);
@@ -89,3 +89,4 @@ export class Crop extends Abstract {
         super.setupViewing();
     }
 }
+new Crop();

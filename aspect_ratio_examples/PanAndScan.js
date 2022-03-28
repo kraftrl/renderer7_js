@@ -55,3 +55,4 @@ export class PanAndScan extends Abstract {
         super.setupViewing();
     }
 }
+new PanAndScan();

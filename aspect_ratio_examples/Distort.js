@@ -8,3 +8,4 @@ export class Distort extends Abstract {
         this.setupViewing();
     }
 }
+new Distort();

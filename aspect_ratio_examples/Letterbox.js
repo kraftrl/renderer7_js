@@ -1,4 +1,3 @@
-import { Pipeline } from "../pipeline/Pipeline.js";
 import { Abstract } from "./Abstract.js";
 
 export class Letterbox extends Abstract {
@@ -55,3 +54,4 @@ export class Letterbox extends Abstract {
         super.setupViewing();
     }
 }
+new Letterbox();

@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset=utf-8>
-		<title id="title">Aspect Ratio Examples</title>
+		<title id="title">Pan and Scan</title>
 		<link rel="shortcut icon" href="#" />
 		<style>
 			body { 
@@ -24,16 +24,15 @@
 			<canvas id="pixels" width=600 height=600></canvas>
 		</div>
 		<div style="float: left; margin-left: 3px;">
-			<button class="client" title="Distort">Distort</button>
-			<button class="client" title="Letterbox">Letterbox</button>
-			<button class="client" title="Crop">Crop</button>
-			<button class="client" title="Window to the World">WttW</button>
-			<button class="client" title="Pan and Scan">P&S</button>
-			<div class="slidecontainer" style="margin-top: 50px;" hidden>
+			<button title="Crop" onclick="location.href = 'Crop.html';">Crop</button>
+			<button title="Distort" onclick="location.href = 'Distort.html';">Distort</button>
+			<button title="Letterbox" onclick="location.href = 'Letterbox.html';">Letterbox</button>
+			<button title="Window to the World" onclick="location.href = 'WindowToTheWorld.html';">WttW</button>
+			<div class="slidecontainer" style="margin-top: 50px;">
 				<label>Horizontal Slider</label>
 				<input type="range" min="1" max="100" value="50" class="slider" id="sliderH" />
 			</div>
-			<div class="slidecontainer" style="margin-top: 10px;" hidden>
+			<div class="slidecontainer" style="margin-top: 10px;">
 				<label>Vertical Slider</label>
 				<input type="range" min="1" max="100" value="50" class="slider" id="sliderV" />
 			</div>
@@ -65,13 +64,6 @@
 		<script src="../models/Disk.js" type="module"></script>
 		<script src="../models/SquareGrid.js" type="module"></script>
 
-		<script src="Index.js" type="module"></script>
-
-        <script src="Abstract.js" type="module"></script>
-		<script src="Distort.js" type="module"></script>
-		<script src="Letterbox.js" type="module"></script>
-		<script src="Crop.js" type="module"></script>
-		<script src="WindowToTheWorld.js" type="module"></script>
 		<script src="PanAndScan.js" type="module"></script>
 	</body>
 </html>

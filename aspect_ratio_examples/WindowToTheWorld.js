@@ -4,7 +4,6 @@ import { ModelShading } from "../scene/ModelShading.js";
 import { Position } from "../scene/Position.js";
 import { SquareGrid } from "../models/SquareGrid.js";
 import { Color } from "../color/Color.js";
-import { Pipeline } from "../pipeline/Pipeline.js";
 
 export class WindowToTheWorld extends Abstract {
 
@@ -118,3 +117,4 @@ export class WindowToTheWorld extends Abstract {
         super.setupViewing();
     }
 }
+new WindowToTheWorld();

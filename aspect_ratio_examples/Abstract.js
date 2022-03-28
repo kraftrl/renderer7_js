@@ -42,8 +42,8 @@ export class Abstract {
         this.scene.addPosition([ position ]);
         position.matrix = Matrix.translate(0, 0, 2);
         this.fps = 30;
-        const thisClass = this;
         this.timer = undefined;
+        this.setUpListeners();
         this.print_help_message();
     }
 
@@ -163,6 +163,29 @@ export class Abstract {
 
         // Render again.
         this.setupViewing();
+    }
+
+    setUpListeners(){
+        const client = this;
+        // start timer to rotate model
+        this.timer = setInterval(function() {
+            client.rotateModel(client.modelToRotate, 10); // 10 degrees
+            client.setupViewing();
+        }, 1000/client.fps);
+        // resize observer
+        const resizeObserver = new ResizeObserver(function () {
+            const w = client.resizer.offsetWidth;
+            const h = client.resizer.offsetHeight;
+            client.ctx.canvas.width = w;
+            client.ctx.canvas.height = h;
+            client.fb = new FrameBuffer(undefined, w, h);
+            client.setupViewing();
+        });
+        resizeObserver.observe(client.resizer);
+        // key listener
+        document.addEventListener("keypress", function(event) {
+            client.keyPressed(event);
+        });
     }
     
    print_help_message() {
