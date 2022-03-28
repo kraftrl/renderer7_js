@@ -32,11 +32,11 @@ export class PanAndScan extends Abstract {
         var vpH = h;
         if (w > this.SIZE) {
             vpW = this.SIZE;
-            vpX = (w - this.SIZE)/2;
+            vpX = Math.floor((w - this.SIZE)/2);
         }
         if (h > this.SIZE) {
             vpH = this.SIZE;
-            vpY = (h - this.SIZE)/2;
+            vpY = Math.floor((h - this.SIZE)/2);
         }
         this.fb.setViewport(vpX, vpY, vpW, vpH);
     
@@ -47,10 +47,10 @@ export class PanAndScan extends Abstract {
         this.bottom = -(vpH/this.SIZE);
         this.top    =  (vpH/this.SIZE);
         // Use the slider value to pan the view volume across the scene.
-        this.left   += (this.sliderValueH - 50.0)/50.0 * (1.0 - vpW/this.SIZE);
-        this.right  += (this.sliderValueH - 50.0)/50.0 * (1.0 - vpW/this.SIZE);
-        this.bottom += (50.0 - this.sliderValueV)/50.0 * (1.0 - vpH/this.SIZE);
-        this.top    += (50.0 - this.sliderValueV)/50.0 * (1.0 - vpH/this.SIZE);
+        this.left   += (this.sliderValueH - 50)/50 * (1 - vpW/this.SIZE);
+        this.right  += (this.sliderValueH - 50)/50 * (1 - vpW/this.SIZE);
+        this.bottom += (50 - this.sliderValueV)/50 * (1 - vpH/this.SIZE);
+        this.top    += (50 - this.sliderValueV)/50 * (1 - vpH/this.SIZE);
 
         super.setupViewing();
     }
