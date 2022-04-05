@@ -93,10 +93,11 @@ var xyzAxes = new Position(new Axes3D(6, -6, 6, 0, 7, -7,  Color.Red, Color.Red,
 // Create a horizontal coordinate plane model.
 var xzPlane = new Position(new PanelXZ(-6, 6, -7, 7));
 ModelShading.setColor(xzPlane.model, Color.Gray);
+
 // Place the xz-plane model in front of the camera.
 xzPlane.matrix = Matrix.translate(0, -3, -10);
-// Place the xz-plane model in front of the camera.
-xzPlane.matrix = Matrix.translate(0, -3, -10);
+// Place the xyz-axes model in front of the camera.
+xyzAxes.matrix = Matrix.translate(0, -3, -10);
 
 // Add the positions (and their models) to the Scene.
 for (var i = 0; i < position.length; i++)
@@ -144,42 +145,42 @@ function display(){
 }
 
 function displayNextFrame() {
-    timer = setInterval(function() {
-    rotateModels();
-    display();
-    }, 1000/30);
+   timer = setInterval(function() {
+   rotateModels();
+   display();
+   }, 1000/30);
 }
 
 var k = 0;
 function rotateModels() {
-    // Place the xz-plane model in front of the camera.
-    xzPlane.matrix = Matrix.translate(0, -3, -10);
-    // Rotate the plane.
-    xzPlane.matrix.mult( Matrix.rotateY(k) );
+      // Place the xz-plane model in front of the camera.
+      xzPlane.matrix = Matrix.translate(0, -3, -10);
+      // Rotate the plane.
+      xzPlane.matrix.mult( Matrix.rotateY(k) );
 
-    // Place the xyz-axes model in front of the camera.
-    xyzAxes.matrix = Matrix.translate(0, -3, -10);
-    // Rotate the axes.
-    xyzAxes.matrix.mult( Matrix.rotateY(k) );
+      // Place the xyz-axes model in front of the camera.
+      xyzAxes.matrix = Matrix.translate(0, -3, -10);
+      // Rotate the axes.
+      xyzAxes.matrix.mult( Matrix.rotateY(k) );
 
-    // Place each model in the rotated xz-plane and
-    // also rotate each model on its own axis.
-    for (var i = 0; i < position.length; i++)
-    {
-       for (var j = 0; j < position[i].length; j++)
-       {
-          // Push the model away from the camera.
-          position[i][j].matrix = Matrix.translate(0, -3, -10);
-          // Rotate the plane of the models.
-          position[i][j].matrix.mult( Matrix.rotateY(k) );
-          // Place the model where it belongs in the rotated plane.
-          position[i][j].matrix.mult( Matrix.translate(4-4*i, 0, 6-3*j) );
-          // Now rotate the model on its own axis.
-          position[i][j].matrix.mult( Matrix.rotateX(3*k) );
-          position[i][j].matrix.mult( Matrix.rotateY(3*k) );
-       }
-    }
-    k++;
+      // Place each model in the rotated xz-plane and
+      // also rotate each model on its own axis.
+      for (var i = 0; i < position.length; i++)
+      {
+         for (var j = 0; j < position[i].length; j++)
+         {
+            // Push the model away from the camera.
+            position[i][j].matrix = Matrix.translate(0, -3, -10);
+            // Rotate the plane of the models.
+            position[i][j].matrix.mult( Matrix.rotateY(k) );
+            // Place the model where it belongs in the rotated plane.
+            position[i][j].matrix.mult( Matrix.translate(4-4*i, 0, 6-3*j) );
+            // Now rotate the model on its own axis.
+            position[i][j].matrix.mult( Matrix.rotateX(3*k) );
+            position[i][j].matrix.mult( Matrix.rotateY(3*k) );
+         }
+      }
+      k = (k+1)%360;
 }
 
 var played = true;
