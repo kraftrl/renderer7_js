@@ -17,7 +17,7 @@ export class ModelShading {
     }
 
     static setRandomColor(model) {
-        console.log(model);
+        // console.log(model);
         ModelShading.setColor(model, ModelShading.randomColor());
     }
 

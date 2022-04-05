@@ -10,6 +10,9 @@ import { P } from './P.js';
 import { N } from './N.js';
 import { W } from './W.js';
 
+// Create timer.
+var timer = null;
+
 // Create the Scene object that we shall render.
 const scene = new Scene();
 
@@ -43,9 +46,34 @@ var width  = 1200;
 var height =  900;
 var fb = new FrameBuffer(null, width, height);                          
 
-// Create the animation frames.
-for (var i = 0; i < 360; i++)
-{
+displayNextFrame();
+
+function display(){
+	const resizer = document.getElementById("resizer");
+	const w = resizer.offsetWidth;
+	const h = resizer.offsetHeight;
+	const ctx = document.getElementById("pixels").getContext("2d");
+	if (ctx == null) {
+		console.log("cn.getContext(2d) is null");
+		return;
+	}
+	ctx.canvas.width = w;
+	ctx.canvas.height = h;
+	const fb = new FrameBuffer(undefined, w, h);
+	Pipeline.render(scene, fb.vp);
+
+	ctx.putImageData(new ImageData(fb.pixel_buffer,fb.width, fb.height), fb.vp.vp_ul_x, fb.vp.vp_ul_y);
+}
+
+function displayNextFrame() {
+    timer = setInterval(function() {
+    rotateModels();
+    display();
+    }, 1000/30);
+}
+
+var i = 0;
+function rotateModels() {
    // Push the letters away from the camera/get into starting positions.
    scene.getPosition(1).matrix = Matrix.translate(-2, 0, -near); // P
    scene.getPosition(2).matrix = Matrix.translate(-0.5, 0, -near); // N
@@ -78,9 +106,31 @@ for (var i = 0; i < 360; i++)
    scene.getPosition(3).matrix.mult( Matrix.translate(0.5, 1.0, 0.0) );
    scene.getPosition(3).matrix.mult( Matrix.rotateZ(2*i) );
    scene.getPosition(3).matrix.mult( Matrix.translate(-0.5, -1.0, 0.0) );
-      
-   // Render again.
-   fb.clearFB(Color.Black);
-   Pipeline.render(scene, fb.vp);
-   fb.dumpFB2File("PNW_Frame" + i + ".ppm");
+
+   if(i == 360) {i = 0;} else {i++;}
 }
+
+var played = true;
+document.addEventListener('keypress', keyPressed);
+function keyPressed(event) {
+    const c = event.key;
+    //var played = true;
+    if ('f' == c)
+    {
+        if (!played)
+            rotateModels();
+    }
+    else if ('p' == c) {
+        if (played) {
+            clearInterval(timer);
+            played = false;
+        } else {
+            displayNextFrame();
+            played = true;
+        }
+    }
+    display();
+}
+
+var resizer = new ResizeObserver(display);
+resizer.observe(document.getElementById("resizer"));
