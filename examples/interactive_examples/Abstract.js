@@ -100,7 +100,7 @@ export class Abstract {
             zRotation += 2.0;
         }
 
-        var model_p = this.scene.positionList[this.currentModel];
+        var model_p = this.modelArray[this.currentModel];
         model_p.matrix = Matrix.translate(0, 0, this.pushback).mult(
                          Matrix.translate(xTranslation, yTranslation, zTranslation)).mult(
                          Matrix.rotateX(xRotation).mult(Matrix.rotateY(yRotation)).mult(Matrix.rotateZ(zRotation)).mult(Matrix.scaleConst(scale))
