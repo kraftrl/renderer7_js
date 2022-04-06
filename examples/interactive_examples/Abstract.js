@@ -27,7 +27,7 @@ export class Abstract {
 
         this.letterbox = false;
         this.aspectRatio = 1;
-        this.near   =  -1;
+        this.near   =  1;
         this.left   = -1;
         this.right  =  1;
         this.bottom = -1;
@@ -100,7 +100,7 @@ export class Abstract {
             zRotation += 2.0;
         }
 
-        var model_p = this.modelArray[this.currentModel];
+        var model_p = this.scene.positionList[0];
         model_p.matrix = Matrix.translate(0, 0, this.pushback).mult(
                          Matrix.translate(xTranslation, yTranslation, zTranslation)).mult(
                          Matrix.rotateX(xRotation).mult(Matrix.rotateY(yRotation)).mult(Matrix.rotateZ(zRotation)).mult(Matrix.scaleConst(scale))
@@ -154,8 +154,7 @@ export class Abstract {
             // Change the aspect ratio of the camera's view rectangle.
             if ('r' == c) {
                 this.aspectRatio -= 0.1;
-            }
-            else {
+            } else {
                 this.aspectRatio += 0.1;
             }
             // Adjust right and left.
