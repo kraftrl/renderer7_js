@@ -6,6 +6,7 @@ import { FrameBuffer } from '../../framebuffer/FrameBuffer.js';
 import { Pipeline } from '../../pipeline/Pipeline.js';
 import { Matrix } from '../../scene/Matrix.js';
 import { ModelShading } from '../../scene/ModelShading.js'
+import { Rasterize } from '../../pipeline/Rasterize.js';
 
 export class Abstract {
     constructor() {
@@ -140,13 +141,15 @@ export class Abstract {
     print_help_message()
     {
         console.log("Use the 'd/D' keys to toggle debugging information on and off for the current model.");
+        console.log("Use the 'a' key to toggle antialiasing on and off.");
+        console.log("Use the 'g' key to toggle gamma correction on and off.");
+        console.log("Use the 'c' key to change the random solid arm color.");
+        console.log("Use the 'C' key to randomly change arm segment colors.");
         console.log("Use the 'i' key to get information about the current model.");
         console.log("Use the '/' key to cycle through the models.");
         console.log("Use the 'p' key to toggle between parallel and orthographic projection.");    
         console.log("Use the x/X, y/Y, z/Z, keys to translate the model along the x, y, z axes.");
         console.log("Use the s/S keys to scale the size of the model.");
-        console.log("Use the 'm' key to toggle the display of transformation information.");
-        console.log("Use the 'c' key to toggle line clipping on and off.");
         console.log("Use the 'h' key to redisplay this help message.");
     }
 

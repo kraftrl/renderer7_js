@@ -102,9 +102,9 @@ export class Abstract {
 
         var model_p = this.scene.positionList[this.currentModel];
         model_p.matrix = Matrix.translate(0, 0, this.pushback).mult(
-                        Matrix.translate(xTranslation, yTranslation, zTranslation)).mult(
-                        Matrix.rotateX(xRotation).mult(Matrix.rotateY(yRotation)).mult(Matrix.rotateZ(zRotation)).mult(Matrix.scaleConst(scale))
-                        );
+                         Matrix.translate(xTranslation, yTranslation, zTranslation)).mult(
+                         Matrix.rotateX(xRotation).mult(Matrix.rotateY(yRotation)).mult(Matrix.rotateZ(zRotation)).mult(Matrix.scaleConst(scale))
+                    );
     }
 
     keyPressed(e) {
@@ -217,6 +217,13 @@ export class Abstract {
         else if ('m' == c) {
             this.showMatrix = !this.showMatrix;
         }
+        else if ('n' == c) {
+            // Move the camera's near plane.
+            this.near -= 0.01;
+        }
+        else if ('N' == c) {
+            this.near += 0.01;
+        }
         
         if ('='==c||'/'==c||'?'==c
             ||'s'==c||'x'==c||'y'==c||'z'==c||'u'==c||'v'==c||'w'==c
@@ -262,8 +269,18 @@ export class Abstract {
         }
         
         // render again
-        this.fb.clearFB();
-        this.fb.vp.clearVP();
+        if (this.letterbox) {
+            const wFB = this.fb.width;
+            const hFB = this.fb.height;
+            // Compute the largest possible dimension for a square viewport.
+            const dVP = Math.min(wFB, hFB);
+            this.fb.setViewport(0, 0, dVP, dVP); // upper left-hand corner
+            this.fb.clearFB();
+            this.fb.vp.clearVP();
+        } else {
+            this.fb.setViewport();
+            this.fb.vp.clearVP();
+        }
         Pipeline.render(this.scene, this.fb.vp);
     
         this.ctx.putImageData(new ImageData(this.fb.pixel_buffer,this.fb.width,this.fb.height), this.fb.vp.vp_ul_x, this.fb.vp.vp_ul_y);
@@ -297,9 +314,8 @@ export class Abstract {
         console.log("Use the s/S keys to scale the size of the model.");
         console.log("Use the 'c' key to change the random solid model color.");
         console.log("Use the 'C' key to randomly change model's colors.");
-        console.log("Use the 'e' key to change the random vertex colors.");
-        console.log("Use the 'e' key to change the random solid edge colors.");
-        console.log("Use the 'E' key to change the random edge colors.");
+        console.log("Use the 'e' key to randomly change the edge colors.");
+        console.log("Use the 'E' key to randomly change the end of the edge colors.");
         console.log("Use the 'a' key to toggle antialiasing on and off.");
         console.log("Use the 'g' key to toggle gamma correction on and off.");
         console.log("Use the n/N keys to move the camera's near plane.");

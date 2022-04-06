@@ -19,6 +19,15 @@
 			button {
 				cursor: pointer;
 			}
+			help {
+				padding: 5px;
+				margin: 20px;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				background-color: lightgray;
+				border: 2px solid black;
+			}
 		</style>
 	</head>
 
@@ -40,6 +49,20 @@
 		<div style="margin: 2px; position: absolute; top: 0; right: 0;">
 			<button style="font-size: medium;" onclick="location = location.origin + '/homework/';">Back</button>
 		</div>
+
+		<help>
+			Use the 'd/D' keys to toggle debugging information on and off for the current model.<br/>
+			Use the 'a' key to toggle antialiasing on and off.<br/>
+			Use the 'g' key to toggle gamma correction on and off.<br/>
+			Use the 'c' key to change the random solid arm color.<br>
+			Use the 'C' key to randomly change arm segment colors.<br>
+			Use the 'i' key to get information about the current model.<br/>
+			Use the '/' key to cycle through the models.<br/>
+			Use the 'p' key to toggle between parallel and orthographic projection."); <br/>
+			Use the x/X, y/Y, z/Z, keys to translate the model along the x, y, z axes.<br/>
+			Use the s/S keys to scale the size of the model.<br/>
+			Use the 'h' key to redisplay this help message.<br/>
+		</help>
 
 		<script src="Canopy.js" type="module"></script>
 	</body>

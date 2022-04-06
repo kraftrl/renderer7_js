@@ -19,6 +19,15 @@
 			button {
 				cursor: pointer;
 			}
+			help {
+				padding: 5px;
+				margin: 20px;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				background-color: lightgray;
+				border: 2px solid black;
+			}
 		</style>
 	</head>
 
@@ -38,6 +47,21 @@
 		<div style="margin: 2px; position: absolute; top: 0; right: 0;">
 			<button style="font-size: medium;" onclick="location = location.origin + '/examples';">Home</button>
 		</div>
+
+		<help>
+			Use the 'd/D' key to toggle debugging information on and off.<br/>
+			Use the 'a' key to toggle antialiasing on and off.<br/>
+			Use the 'g' key to toggle gamma correction on and off.<br/>
+			Use the 'c' key to change the random solid arm color.<br/>
+			Use the 'C' key to randomly change arm segment colors.<br/>
+			Use the 'e' key to randomly change the colors of the edges.<br/>
+			Use the 'E' key to randomly change the colors of ends of the edges.<br/>
+			Use the 'f' key to toggle showing framebuffer aspect ratio.<br/>
+			Use the 'M' key to toggle showing the Camera normalization matrix.<br/>
+			Use the 'm' key to toggle showing the Model transformation matrix.<br/>
+			Use the 's/S' key to stop/Start the rotation.<br/>
+			Use the 'h' key to redisplay this help message.<br/>
+		</help>
 		
 		<script src="Distort.js" type="module"></script>
 	</body>

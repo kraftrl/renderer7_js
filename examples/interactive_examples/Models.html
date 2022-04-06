@@ -19,6 +19,15 @@
 			button {
 				cursor: pointer;
 			}
+			help {
+				padding: 5px;
+				margin: 20px;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				background-color: lightgray;
+				border: 2px solid black;
+			}
 		</style>
 	</head>
 
@@ -37,6 +46,30 @@
 		<div style="margin: 2px; position: absolute; top: 0; right: 0;">
 			<button style="font-size: medium;" onclick="location = location.origin + '/examples';">Home</button>
 		</div>
+
+		<help>
+			Use the 'd' key to toggle debugging information on and off for the current model.<br/>
+			Use the '/' key to cycle through the models.<br/>
+			Use the 'p' key to toggle between parallel and orthographic projection.<br/>
+			Use the x/X, y/Y, z/Z, keys to translate the model along the x, y, z axes.<br/>
+			Use the u/U, v/V, w/W, keys to rotate the model around the x, y, z axes.<br/>
+			Use the s/S keys to scale the size of the model.<br/>
+			Use the 'c' key to change the random solid model color.<br/>
+			Use the 'C' key to randomly change model's colors.<br/>
+			Use the 'e' key to randomly change the edge colors.<br/>
+			Use the 'E' key to randomly change the end of the edge colors.<br/>
+			Use the 'a' key to toggle antialiasing on and off.<br/>
+			Use the 'g' key to toggle gamma correction on and off.<br/>
+			Use the n/N keys to move the camera's near plane.<br/>
+			Use the o/O keys to change the size of the camera's view rectangle.<br/>
+			Use the r/R keys to change the aspect ratio of the camera's view rectangle.<br/>
+			Use the 'f' key to toggle showing framebufer aspect ratio.<br/>
+			Use the 'l' key to toggle letterboxing on and off.<br/>
+			Use the 'M' key to toggle showing the Camera normalization matrix.<br/>
+			Use the 'm' key to toggle showing the Model transformation matrix.<br/>
+			Use the '=' key to reset the Model transformation matrix to the identity.<br/>
+			Use the 'h' key to redisplay this help message.<br/>
+		</help>
 
 		<script src="Models.js" type="module"></script>
 	</body>

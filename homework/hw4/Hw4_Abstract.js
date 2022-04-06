@@ -109,9 +109,6 @@ export class Hw4_Abstract {
         } else if ('C' == c) {
             // Change each color in the current model to a random color.
             ModelShading.setRandomColors(this.scene.getPosition(0).model);
-        } else if ('e' == c && e.altKey()) {
-            // Change the random color of each vertex of the current model.
-            ModelShading.setRandomVertexColors(this.scene.getPosition(0).model);
         } else if ('e' == c) {
             // Change the solid random color of each edge of the current model.
             ModelShading.setRandomLineSegmentColors(this.scene.getPosition(0).model);
@@ -180,15 +177,19 @@ export class Hw4_Abstract {
             client.keyPressed(event);
         });
     }
-    
-   print_help_message() {
-      console.log("Use the 'd/D' key to toggle debugging information on and off.");
-      console.log("Use the 'a' key to toggle antialiasing on and off.");
-      console.log("Use the 'g' key to toggle gamma correction on and off.");
-      console.log("Use the 'f' key to toggle showing framebuffer aspect ratio.");
-      console.log("Use the 'm' key to toggle showing the Camera data.");
-      console.log("Use the 's/S' key to stop/Start the rotation.");
-      console.log("Use the '1' through '9' keys to choose a letterbox/crop/window mode.");
-      console.log("Use the 'h' key to redisplay this help message.");
-   }
+        
+    print_help_message() {
+        console.log("Use the 'd/D' key to toggle debugging information on and off.");
+        console.log("Use the 'a' key to toggle antialiasing on and off.");
+        console.log("Use the 'g' key to toggle gamma correction on and off.");
+        console.log("Use the 'c' key to change the random solid arm color.");
+        console.log("Use the 'C' key to randomly change arm segment colors.");
+        console.log("Use the 'e' key to randomly change the colors of the edges.");
+        console.log("Use the 'E' key to randomly change the colors of ends of the edges.");
+        console.log("Use the 'f' key to toggle showing framebuffer aspect ratio.");
+        console.log("Use the 'm' key to toggle showing the Camera data.");
+        console.log("Use the 's/S' key to stop/Start the rotation.");
+        console.log("Use the '1' through '9' keys to choose a letterbox/crop/window mode.");
+        console.log("Use the 'h' key to redisplay this help message.");
+    }
 }
